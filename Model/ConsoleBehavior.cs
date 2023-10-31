@@ -9,7 +9,7 @@ namespace MAA1999WPF.Model
 {
     internal class ConsoleBehavior
     {
-        const string MAA1999_PATH = @"D:\OtherProject\MAA1999-win-x86_64-v0.6.0\MAA1999_CLI.exe";
+        const string MAA1999_PATH = @".\MAA1999_CLI.exe";
         readonly ProcessStartInfo maa1999StartInfo = new()
         {
             FileName = MAA1999_PATH,

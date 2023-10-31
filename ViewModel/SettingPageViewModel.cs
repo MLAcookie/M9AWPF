@@ -21,9 +21,9 @@ namespace MAA1999WPF.ViewModel
         JourneytoMorPankh,      //活动：行至摩卢旁卡(已结束)
         ThePrisonerintheCave,   //活动：洞穴的囚徒
     }
-    public partial class BoxedMAATask : ObservableObject
+    public partial class BoxedMAATask : ObservableObject//把标准对象包装，方便框架调用
     {
-        public static BoxedMAATask ConvertionFrom(MAATask maaTask)
+        public static BoxedMAATask ConvertionFrom(MAATask maaTask)//标准对象转为包装的对象
         {
             BoxedMAATask box = new BoxedMAATask();
             if (maaTask.type == MAATaskType.Combat.ToString()
@@ -36,12 +36,14 @@ namespace MAA1999WPF.ViewModel
             }
             else
             {
-                box.diff_task = new Diff_Task();
-                box.diff_task.AllIn = new Allin();
-                box.diff_task.EatCandyWithin24H = new Eatcandywithin24h();
-                box.diff_task.EnterTheShow = new Entertheshow();
-                box.diff_task.TargetStageName = new Targetstagename();
-                box.diff_task.SetReplaysTimes = new Setreplaystimes();
+                box.diff_task = new Diff_Task
+                {
+                    AllIn = new Allin(),
+                    EatCandyWithin24H = new Eatcandywithin24h(),
+                    EnterTheShow = new Entertheshow(),
+                    TargetStageName = new Targetstagename(),
+                    SetReplaysTimes = new Setreplaystimes()
+                };
                 box.diff_task.SetReplaysTimes.text = "1";
                 box.diff_task.StageDifficulty = new Stagedifficulty();
             }
@@ -185,12 +187,12 @@ namespace MAA1999WPF.ViewModel
     }
     public partial class SettingPageViewModel : ObservableObject
     {
-        //const string path = @".\config.json";
-        const string path = @"D:\OtherProject\MAA1999-win-x86_64-v0.6.0\config.json";
-        ConfigManager configManager = new ConfigManager(path);
+        const string path = @".\config.json";
+        //const string path = @"D:\OtherProject\MAA1999-win-x86_64-v0.6.0\config.json";
+        readonly ConfigManager configManager = new(path);
         [ObservableProperty]
         List<BoxedMAATask> allMAATasks;
-        static Dictionary<string, List<string>> allStage = new Dictionary<string, List<string>>()
+        static readonly Dictionary<string, List<string>> allStage = new()
         {
             {"MainChapter_1",GenerateStageNumber(16)},//16
             {"MainChapter_2",GenerateStageNumber(15)},//15
@@ -204,7 +206,7 @@ namespace MAA1999WPF.ViewModel
             {"PromotionChapter_BW",GenerateStageNumber(6)},//06
             {"dummyThePrisonerintheCave",new List<string>(){ "dummy证明启示V" } },
         };
-        static List<string> allShow = new List<string>()
+        static readonly List<string> allShow = new()
         {
             "MainChapter_1",
             "MainChapter_2",
@@ -290,16 +292,18 @@ namespace MAA1999WPF.ViewModel
         }
         public void AddTask(MAATaskType maaTaskType, bool allIn, bool candy24H, string enterShow, string targetStage, bool isDifficulty, int replayTimes, string taskName)
         {
-            BoxedMAATask maaTask = new BoxedMAATask();
-            maaTask.name = taskName;
-            maaTask.type = maaTaskType;
-            maaTask.diff_task = new Diff_Task
+            BoxedMAATask maaTask = new()
             {
-                AllIn = new Allin(),
-                EatCandyWithin24H = new Eatcandywithin24h(),
-                EnterTheShow = new Entertheshow(),
-                TargetStageName = new Targetstagename(),
-                SetReplaysTimes = new Setreplaystimes()
+                name = taskName,
+                type = maaTaskType,
+                diff_task = new Diff_Task
+                {
+                    AllIn = new Allin(),
+                    EatCandyWithin24H = new Eatcandywithin24h(),
+                    EnterTheShow = new Entertheshow(),
+                    TargetStageName = new Targetstagename(),
+                    SetReplaysTimes = new Setreplaystimes()
+                }
             };
             maaTask.diff_task.SetReplaysTimes.text = "1";
             maaTask.diff_task.StageDifficulty = new Stagedifficulty();
@@ -316,7 +320,7 @@ namespace MAA1999WPF.ViewModel
             AllMAATasks.Add(maaTask);
             OnPropertyChanged(nameof(AllMAATasks));
         }
-        public void ItemMoveUp(BoxedMAATask maaTask)
+        public void ItemMoveUp(BoxedMAATask maaTask)//上移任务
         {
             if (allMAATasks[0] == maaTask)
             {
@@ -334,7 +338,7 @@ namespace MAA1999WPF.ViewModel
             (allMAATasks[index - 1], allMAATasks[index]) = (allMAATasks[index], allMAATasks[index - 1]);
             OnPropertyChanged(nameof(AllMAATasks));
         }
-        public void ItemMoveDown(BoxedMAATask maaTask)
+        public void ItemMoveDown(BoxedMAATask maaTask)//下移任务
         {
             if (allMAATasks[allMAATasks.Count - 1] == maaTask)
             {
@@ -352,7 +356,7 @@ namespace MAA1999WPF.ViewModel
             (allMAATasks[index + 1], allMAATasks[index]) = (allMAATasks[index], allMAATasks[index + 1]);
             OnPropertyChanged(nameof(AllMAATasks));
         }
-        public void ItemDelete(BoxedMAATask maaTask)
+        public void ItemDelete(BoxedMAATask maaTask)//删除任务
         {
             int index = 0;
             while (true)

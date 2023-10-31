@@ -12,6 +12,7 @@ using System.Diagnostics;
 
 namespace MAA1999WPF.Model
 {
+    //管理config的类，操纵的是从config文件反序列化得来的对象
     public enum Client
     {
         Official = 1,
@@ -22,7 +23,7 @@ namespace MAA1999WPF.Model
         static string targetConfigFilepath;
         static ConfigObject configObject;
         public static List<BoxedMAATask> boxedMAATasks;
-        public ConfigManager(string targetConfigFilepath)
+        public ConfigManager(string targetConfigFilepath)//按路径初始化
         {
             ConfigManager.targetConfigFilepath = targetConfigFilepath;
             StreamReader sr = File.OpenText(targetConfigFilepath);
@@ -30,7 +31,7 @@ namespace MAA1999WPF.Model
             configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString);
             sr.Close();
         }
-        public static void SaveConfig()
+        public static void SaveConfig()//保存到原文件
         {
             List<MAATask> maaTasks = new List<MAATask>();
             foreach (var task in boxedMAATasks)
@@ -46,7 +47,7 @@ namespace MAA1999WPF.Model
         {
             configObject.adb_address = address;
         }
-        public Client Client
+        public Client Client//自动属性，Clent和int互转
         {
             get
             {
@@ -65,7 +66,7 @@ namespace MAA1999WPF.Model
                 }
             }
         }
-        public string ADBPath
+        public string ADBPath//修改ADB路径
         {
             get
             {
@@ -76,7 +77,7 @@ namespace MAA1999WPF.Model
                 configObject.adb = value;
             }
         }
-        public int ADBPort
+        public int ADBPort//修改端口
         {
             get
             {
@@ -88,7 +89,7 @@ namespace MAA1999WPF.Model
                 configObject.adb_address = $"127.0.0.1:{value}";
             }
         }
-        public List<BoxedMAATask> GetAllMAATasks()
+        public List<BoxedMAATask> GetAllMAATasks()//获取所有的已包装的对象
         {
             List<BoxedMAATask> list = new List<BoxedMAATask>();
             foreach (var task in configObject.tasks)

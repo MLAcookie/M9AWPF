@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MAA1999WPF.Model
 {
+    //这里的所有代码都是用来json序列化的
     [Serializable]
     public class ConfigObject
     {
@@ -23,7 +24,7 @@ namespace MAA1999WPF.Model
     [Serializable]
     public class MAATask
     {
-        public static MAATask ConvertionFrom(BoxedMAATask box)
+        public static MAATask ConvertionFrom(BoxedMAATask box)//从内部的编辑对象转换为标准对象
         {
             MAATask maaTask = new MAATask();
             maaTask.name = box.name;
@@ -40,10 +41,6 @@ namespace MAA1999WPF.Model
         public string name { get; set; }
         public TaskParam param { get; set; }
         public string type { get; set; }
-        public static void ChangeTaskName(MAATask task, string name)
-        {
-            task.name = name;
-        }
     }
 
     [Serializable]
