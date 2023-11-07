@@ -10,7 +10,7 @@
     Width="800"
     Height="600"
     ui:WindowHelper.UseModernWindowStyle="True"
-    ResizeMode="NoResize"
+    ResizeMode="CanMinimize"
     mc:Ignorable="d">
     <ui:NavigationView
         IsBackButtonVisible="Collapsed"

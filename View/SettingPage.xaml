@@ -13,14 +13,14 @@
     <UserControl.DataContext>
         <vm:SettingPageViewModel />
     </UserControl.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".25*" />
-            <ColumnDefinition />
-            <ColumnDefinition Width=".25*" />
-        </Grid.ColumnDefinitions>
-        <ui:ScrollViewerEx Grid.Column="1">
-            <StackPanel>
+    <ui:ScrollViewerEx Grid.Column="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".25*" />
+                <ColumnDefinition />
+                <ColumnDefinition Width=".25*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1">
                 <Grid Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80" />
@@ -69,34 +69,26 @@
                                     Margin="0,5,0,5"
                                     HorizontalAlignment="Left"
                                     Header="{Binding StringType}">
+                                    <Expander.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Click="MoveUp_MenuItem_Click" Header="MoveUp">
+                                                <MenuItem.Icon>
+                                                    <TextBlock FontFamily="/MAA1999WPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf062;" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <MenuItem Click="MoveDown_MenuItem_Click" Header="MoveDown">
+                                                <MenuItem.Icon>
+                                                    <TextBlock FontFamily="/MAA1999WPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf063;" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <MenuItem Click="Delete_MenuItem_Click" Header="Delete">
+                                                <MenuItem.Icon>
+                                                    <TextBlock FontFamily="/MAA1999WPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf2ed;" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                        </ContextMenu>
+                                    </Expander.ContextMenu>
                                     <StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button
-                                                Width="36"
-                                                Height="36"
-                                                Margin="10,10,0,0"
-                                                Click="MoveUp_Button_Click"
-                                                Content="+"
-                                                FontSize="16"
-                                                ToolTip="Up" />
-                                            <Button
-                                                Width="36"
-                                                Height="36"
-                                                Margin="10,10,0,0"
-                                                Click="MoveDown_Button_Click"
-                                                Content="-"
-                                                FontSize="16"
-                                                ToolTip="Down" />
-                                            <Button
-                                                Width="36"
-                                                Height="36"
-                                                Margin="10,10,0,0"
-                                                Click="Delete_Button_Click"
-                                                Content="&#xf2ed;"
-                                                FontFamily="/MAA1999WPF;component/Font/#Font Awesome 6 Free Solid"
-                                                FontSize="16"
-                                                ToolTip="Delete" />
-                                        </StackPanel>
                                         <Grid Margin="0,5,0,0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="150" />
@@ -372,6 +364,6 @@
                 </StackPanel>
                 <Border Height="50" />
             </StackPanel>
-        </ui:ScrollViewerEx>
-    </Grid>
+        </Grid>
+    </ui:ScrollViewerEx>
 </UserControl>

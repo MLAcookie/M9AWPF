@@ -22,6 +22,7 @@ namespace MAA1999WPF.Model
     {
         static string targetConfigFilepath;
         static ConfigObject configObject;
+        static MAAItemConfig itemConfig;
         public static List<BoxedMAATask> boxedMAATasks;
         public ConfigManager(string targetConfigFilepath)//按路径初始化
         {
@@ -30,6 +31,8 @@ namespace MAA1999WPF.Model
             string jsonString = sr.ReadToEnd();
             configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString);
             sr.Close();
+            sr = File.OpenText(@"D:\Code\Test.json");
+            itemConfig = JsonSerializer.Deserialize<MAAItemConfig>(sr.ReadToEnd());
         }
         public static void SaveConfig()//保存到原文件
         {

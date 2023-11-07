@@ -79,19 +79,19 @@ namespace MAA1999WPF.View
                 NewTaskName_TextBox.Text);
             AllTask_ItemsControl.Items.Refresh();
         }
-        private void MoveUp_Button_Click(object sender, RoutedEventArgs e)
+        private void MoveUp_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as VM).ItemMoveUp((sender as Button).DataContext as BoxedMAATask);
+            (DataContext as VM).ItemMoveUp((sender as MenuItem).DataContext as BoxedMAATask);
             AllTask_ItemsControl.Items.Refresh();
         }
-        private void MoveDown_Button_Click(object sender, RoutedEventArgs e)
+        private void MoveDown_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as VM).ItemMoveDown((sender as Button).DataContext as BoxedMAATask);
+            (DataContext as VM).ItemMoveDown((sender as MenuItem).DataContext as BoxedMAATask);
             AllTask_ItemsControl.Items.Refresh();
         }
-        private void Delete_Button_Click(object sender, RoutedEventArgs e)
+        private void Delete_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as VM).ItemDelete((sender as Button).DataContext as BoxedMAATask);
+            (DataContext as VM).ItemDelete((sender as MenuItem).DataContext as BoxedMAATask);
             AllTask_ItemsControl.Items.Refresh();
         }
         private void ChooseShowNewTask_AutoSuggestBox_TextChanged(ModernWpf.Controls.AutoSuggestBox sender, ModernWpf.Controls.AutoSuggestBoxTextChangedEventArgs args)
