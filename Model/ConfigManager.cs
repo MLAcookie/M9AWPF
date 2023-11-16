@@ -1,5 +1,4 @@
 ﻿using MAA1999WPF.ViewModel;
-using MAA1999WPF.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,17 +21,15 @@ namespace MAA1999WPF.Model
     {
         static string targetConfigFilepath;
         static ConfigObject configObject;
-        static MAAItemConfig itemConfig;
         public static List<BoxedMAATask> boxedMAATasks;
         public ConfigManager(string targetConfigFilepath)//按路径初始化
+
         {
             ConfigManager.targetConfigFilepath = targetConfigFilepath;
             StreamReader sr = File.OpenText(targetConfigFilepath);
             string jsonString = sr.ReadToEnd();
             configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString);
             sr.Close();
-            sr = File.OpenText(@"D:\Code\Test.json");
-            itemConfig = JsonSerializer.Deserialize<MAAItemConfig>(sr.ReadToEnd());
         }
         public static void SaveConfig()//保存到原文件
         {
@@ -46,11 +43,11 @@ namespace MAA1999WPF.Model
             jsonString = jsonString.Replace("null", "{}");
             File.WriteAllText(targetConfigFilepath, jsonString, new UTF8Encoding(false));
         }
-        public void ChangeADBAddress(string address)
+        public static void ChangeADBAddress(string address)
         {
             configObject.adb_address = address;
         }
-        public Client Client//自动属性，Clent和int互转
+        public static Client Client//自动属性，Clent和int互转
         {
             get
             {
@@ -69,7 +66,7 @@ namespace MAA1999WPF.Model
                 }
             }
         }
-        public string ADBPath//修改ADB路径
+        public static string ADBPath//修改ADB路径
         {
             get
             {
@@ -80,7 +77,7 @@ namespace MAA1999WPF.Model
                 configObject.adb = value;
             }
         }
-        public int ADBPort//修改端口
+        public static int ADBPort//修改端口
         {
             get
             {
@@ -92,7 +89,7 @@ namespace MAA1999WPF.Model
                 configObject.adb_address = $"127.0.0.1:{value}";
             }
         }
-        public List<BoxedMAATask> GetAllMAATasks()//获取所有的已包装的对象
+        public static List<BoxedMAATask> GetAllMAATasks()//获取所有的已包装的对象
         {
             List<BoxedMAATask> list = new List<BoxedMAATask>();
             foreach (var task in configObject.tasks)

@@ -1,0 +1,154 @@
+{
+    "Types": [
+        {
+            "ConfigName": "Close1999",
+            "UIName": "关闭1999",
+            "IsCombat": false
+        },
+        {
+            "ConfigName": "StartUp",
+            "UIName": "1999, 启动",
+            "IsCombat": false
+        },
+        {
+            "ConfigName": "Wilderness",
+            "UIName": "收取荒原",
+            "IsCombat": false
+        },
+        {
+            "ConfigName": "Awards",
+            "UIName": "领取奖励",
+            "IsCombat": false
+        },
+        {
+            "ConfigName": "Psychube",
+            "UIName": "每日心相",
+            "IsCombat": false
+        },
+        {
+            "ConfigName": "Combat",
+            "UIName": "正常关卡",
+            "IsCombat": true
+        },
+        {
+            "ConfigName": "ANightmareAtGreenLake",
+            "UIName": "活动: 绿湖噩梦(已结束)",
+            "IsCombat": true
+        },
+        {
+            "ConfigName": "JourneytoMorPankh",
+            "UIName": "活动: 行至摩卢旁卡(已结束)",
+            "IsCombat": true
+        },
+        {
+            "ConfigName": "ThePrisonerintheCave",
+            "UIName": "活动: 洞穴的囚徒",
+            "IsCombat": true
+        }
+    ],
+    "Shows": [
+        {
+            "Type": "Combat",
+            "ConfigName": "MainChapter_1",
+            "UIName": "主线1",
+            "Stages": [
+                "01",
+                "02"
+            ]
+        },
+        {
+            "Type": "Combat",
+            "ConfigName": "MainChapter_2",
+            "UIName": "主线2",
+            "Stages": [
+                "01",
+                "02"
+            ]
+        },
+        {
+            "Type": "Combat",
+            "ConfigName": "MainChapter_3",
+            "UIName": "主线3",
+            "Stages": [
+                "01",
+                "02"
+            ]
+        },
+        {
+            "Type": "Combat",
+            "ConfigName": "MainChapter_4",
+            "UIName": "主线4",
+            "Stages": [
+                "01",
+                "02"
+            ]
+        },
+        {
+            "Type": "Combat",
+            "ConfigName": "ResourceChapter_LP",
+            "UIName": "尘埃",
+            "Stages": [
+                "01",
+                "02"
+            ]
+        },
+        {
+            "Type": "Combat",
+            "ConfigName": "ResourceChapter_MA",
+            "UIName": "铸币",
+            "Stages": [
+                "01",
+                "02"
+            ]
+        },
+        {
+            "Type": "Combat",
+            "ConfigName": "PromotionChapter_ME",
+            "UIName": "岩",
+            "Stages": [
+                "01",
+                "02"
+            ]
+        },
+        {
+            "Type": "Combat",
+            "ConfigName": "PromotionChapter_SL",
+            "UIName": "星",
+            "Stages": [
+                "01",
+                "02"
+            ]
+        },
+        {
+            "Type": "Combat",
+            "ConfigName": "PromotionChapter_SS",
+            "UIName": "林",
+            "Stages": [
+                "01",
+                "02"
+            ]
+        },
+        {
+            "Type": "Combat",
+            "ConfigName": "PromotionChapter_BW",
+            "UIName": "兽",
+            "Stages": [
+                "01",
+                "02",
+                "03",
+                "04",
+                "05",
+                "06"
+            ]
+        },
+        {
+            "Type": "ThePrisonerintheCave",
+            "ConfigName": "dummyThePrisonerintheCave",
+            "UIName": "活动: 洞穴的囚徒",
+            "Stages": [
+                "dummy证明启示V"
+            ]
+        }
+    ],
+    "Version": "0.01"
+}

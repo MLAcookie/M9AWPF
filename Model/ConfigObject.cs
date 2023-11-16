@@ -29,7 +29,7 @@ namespace MAA1999WPF.Model
             MAATask maaTask = new MAATask();
             maaTask.name = box.name;
             maaTask.type = box.type.ToString();
-            if (box.type is MAATaskType.Combat or MAATaskType.ANightmareAtGreenLake or MAATaskType.JourneytoMorPankh or MAATaskType.ThePrisonerintheCave)
+            if (box.isCombat)
             {
                 maaTask.param = new TaskParam
                 {

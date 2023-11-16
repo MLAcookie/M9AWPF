@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:vm="clr-namespace:MAA1999WPF.ViewModel"
-    d:DesignHeight="2000"
+    d:DesignHeight="1000"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.DataContext>
@@ -68,7 +68,7 @@
                                     Width="400"
                                     Margin="0,5,0,5"
                                     HorizontalAlignment="Left"
-                                    Header="{Binding StringType}">
+                                    Header="{Binding DisplayHeader}">
                                     <Expander.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Click="MoveUp_MenuItem_Click" Header="MoveUp">
@@ -113,18 +113,9 @@
                                             <ComboBox
                                                 Grid.Column="1"
                                                 Width="250"
-                                                SelectedIndex="{Binding TaskType}"
-                                                SelectionChanged="TaskList_ComboBox_SelectionChanged">
-                                                <ComboBoxItem Content="Close1999" />
-                                                <ComboBoxItem Content="StartUp" />
-                                                <ComboBoxItem Content="Wilderness" />
-                                                <ComboBoxItem Content="Awards" />
-                                                <ComboBoxItem Content="Psychube" />
-                                                <ComboBoxItem Content="Combat" />
-                                                <ComboBoxItem Content="ANightmareAtGreenLake" />
-                                                <ComboBoxItem Content="JourneytoMorPankh" />
-                                                <ComboBoxItem Content="ThePrisonerintheCave" />
-                                            </ComboBox>
+                                                ItemsSource="{Binding UITypeName}"
+                                                SelectedIndex="{Binding TaskTypeIndex}"
+                                                SelectionChanged="TaskList_ComboBox_SelectionChanged" />
                                         </Grid>
                                         <Grid Name="AllIn_Grid" Margin="0,5,0,0">
                                             <Grid.ColumnDefinitions>
@@ -250,17 +241,14 @@
                             Name="AddTask_ComboBox"
                             Grid.Column="1"
                             Width="250"
+                            ItemsSource="{Binding AllType}"
                             SelectedIndex="0"
                             SelectionChanged="AddTask_ComboBox_SelectionChanged">
-                            <ComboBoxItem Content="Close1999" />
-                            <ComboBoxItem Content="StartUp" />
-                            <ComboBoxItem Content="Wilderness" />
-                            <ComboBoxItem Content="Awards" />
-                            <ComboBoxItem Content="Psychube" />
-                            <ComboBoxItem Content="Combat" />
-                            <ComboBoxItem Content="ANightmareAtGreenLake" />
-                            <ComboBoxItem Content="JourneytoMorPankh" />
-                            <ComboBoxItem Content="ThePrisonerintheCave" />
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding UIName}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
                     <Grid
@@ -303,10 +291,13 @@
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
                             Text="打哪章" />
-                        <ui:AutoSuggestBox
-                            Name="EnterTheShow_AutoSuggestBox"
+                        <ComboBox
+                            Name="EnterTheShow_ComboBox"
                             Grid.Column="1"
-                            TextChanged="ChooseShowNewTask_AutoSuggestBox_TextChanged" />
+                            Width="250"
+                            ItemsSource="{Binding ShowsName}"
+                            SelectedIndex="0"
+                            SelectionChanged="EnterTheShow_ComboBox_SelectionChanged" />
                     </Grid>
                     <Grid
                         Name="TargetStageName_Grid"
@@ -320,10 +311,12 @@
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
                             Text="打哪关" />
-                        <ui:AutoSuggestBox
-                            Name="TargetStageName_AutoSuggestBox"
+                        <ComboBox
+                            Name="TargetStageName_ComboBox"
                             Grid.Column="1"
-                            TextChanged="ChooseStageNewTask_AutoSuggestBox_TextChanged" />
+                            Width="250"
+                            ItemsSource="{Binding AllStages}"
+                            SelectedIndex="0" />
                     </Grid>
                     <Grid
                         Name="IsDifficaulty_Grid"

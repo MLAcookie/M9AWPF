@@ -22,4 +22,10 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="test.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

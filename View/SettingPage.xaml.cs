@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MAA1999WPF.Model;
 using MAA1999WPF.ViewModel;
 using ModernWpf.Controls;
 
@@ -25,6 +24,7 @@ namespace MAA1999WPF.View
     using VM = SettingPageViewModel;
     public partial class SettingPage : UserControl
     {
+        
         public SettingPage()
         {
             InitializeComponent();
@@ -64,20 +64,25 @@ namespace MAA1999WPF.View
                     SetReplaysTimes_Grid.Visibility = Visibility.Collapsed;
                 }
             }
-            NewTaskName_TextBox.Text = $"{((MAATaskType)((ComboBox)sender).SelectedIndex)}Task";
+            //NewTaskName_TextBox.Text = $"{types[((ComboBox)sender).SelectedIndex].ConfigName}Task";
+            //(DataContext as VM).UpdateAllShow(VM.ConfigTypeName[((ComboBox)sender).SelectedIndex]);
+            if (EnterTheShow_ComboBox is not null)
+            {
+                EnterTheShow_ComboBox.SelectedIndex = 0;
+            }
         }
 
         private void AddTask_Button_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as VM).AddTask((MAATaskType)AddTask_ComboBox.SelectedIndex,
-                AllIn_CheckBox.IsChecked ?? false,
-                EatCandyWithin24H_CheckBox.IsChecked ?? false,
-                EnterTheShow_AutoSuggestBox.Text,
-                TargetStageName_AutoSuggestBox.Text,
-                IsDifficaulty_CheckBox.IsChecked ?? false,
-                (int)SetReplaysTimes_NumberBox.Value,
-                NewTaskName_TextBox.Text);
-            AllTask_ItemsControl.Items.Refresh();
+            //(DataContext as VM).AddTask(VM.ConfigTypeN[AddTask_ComboBox.SelectedIndex],
+            //    AllIn_CheckBox.IsChecked ?? false,
+            //    EatCandyWithin24H_CheckBox.IsChecked ?? false,
+            //    VM.showsName[EnterTheShow_ComboBox.SelectedIndex],
+            //    (DataContext as VM).AllStages[EnterTheShow_ComboBox.SelectedIndex],
+            //    IsDifficaulty_CheckBox.IsChecked ?? false,
+            //    (int)SetReplaysTimes_NumberBox.Value,
+            //    NewTaskName_TextBox.Text);
+            //AllTask_ItemsControl.Items.Refresh();
         }
         private void MoveUp_MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -98,36 +103,36 @@ namespace MAA1999WPF.View
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
-                sender.ItemsSource = VM.GetAllShow((MAATaskType)AddTask_ComboBox.SelectedIndex)
-               .Where(t => t.Contains(sender.Text, StringComparison.OrdinalIgnoreCase))
-               .ToList();
+                // sender.ItemsSource = VM.GetAllShow((MAATaskType)AddTask_ComboBox.SelectedIndex)
+                //.Where(t => t.Contains(sender.Text, StringComparison.OrdinalIgnoreCase))
+                //.ToList();
             }
         }
         private void ChooseShow_AutoSuggestBox_TextChanged(ModernWpf.Controls.AutoSuggestBox sender, ModernWpf.Controls.AutoSuggestBoxTextChangedEventArgs args)
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
-                sender.ItemsSource = VM.GetAllShow((sender.DataContext as BoxedMAATask).type)
-               .Where(t => t.Contains(sender.Text, StringComparison.OrdinalIgnoreCase))
-               .ToList();
-            }
-        }
-        private void ChooseStageNewTask_AutoSuggestBox_TextChanged(ModernWpf.Controls.AutoSuggestBox sender, ModernWpf.Controls.AutoSuggestBoxTextChangedEventArgs args)
-        {
-            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
-            {
-                sender.ItemsSource = VM.GetAllStage(EnterTheShow_AutoSuggestBox.Text)
-                    .Where(t => t.Contains(sender.Text, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+                // sender.ItemsSource = VM.GetAllShow((sender.DataContext as BoxedMAATask).type)
+                //.Where(t => t.Contains(sender.Text, StringComparison.OrdinalIgnoreCase))
+                //.ToList();
             }
         }
         private void ChooseStage_AutoSuggestBox_TextChanged(ModernWpf.Controls.AutoSuggestBox sender, ModernWpf.Controls.AutoSuggestBoxTextChangedEventArgs args)
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
-                sender.ItemsSource = VM.GetAllStage((sender.DataContext as BoxedMAATask).EnterTheShow)
-                    .Where(t => t.Contains(sender.Text, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+                //sender.ItemsSource = VM.GetAllStage((sender.DataContext as BoxedMAATask).EnterTheShow)
+                //    .Where(t => t.Contains(sender.Text, StringComparison.OrdinalIgnoreCase))
+                //    .ToList();
+            }
+        }
+
+        private void EnterTheShow_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //(DataContext as VM).UpdateAllStage(VM.ConfigShowName[EnterTheShow_ComboBox.SelectedIndex]);
+            if (TargetStageName_ComboBox is not null)
+            {
+                TargetStageName_ComboBox.SelectedIndex = 0;
             }
         }
     }
