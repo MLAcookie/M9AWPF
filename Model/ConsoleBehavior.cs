@@ -13,7 +13,7 @@ namespace MAA1999WPF.Model
         readonly ProcessStartInfo maa1999StartInfo = new()
         {
             FileName = MAA1999_PATH,
-            RedirectStandardInput = false,
+            RedirectStandardInput = true,
             RedirectStandardOutput = false,
             CreateNoWindow = false,
             UseShellExecute = false,

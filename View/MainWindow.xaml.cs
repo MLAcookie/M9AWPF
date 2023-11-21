@@ -20,24 +20,13 @@ namespace MAA1999WPF.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        Dictionary<string, UserControl> Pages = new Dictionary<string, UserControl>();
         public MainWindow()
         {
             InitializeComponent();
-            Pages.Add("HomePage",new HomePage());
-            Pages.Add("SettingPage",new SettingPage());
-            MainPage.Content = Pages["HomePage"];
         }
         private void NavigationView_ItemInvoked(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            if (args.IsSettingsInvoked)
-            {
-                MainPage.Content = Pages["SettingPage"];
-            }
-            else
-            {
-                MainPage.Content = Pages[args.InvokedItemContainer.Tag.ToString()];
-            }
+
         }
     }
 }

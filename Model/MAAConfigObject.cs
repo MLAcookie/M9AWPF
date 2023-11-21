@@ -28,12 +28,38 @@ namespace MAA1999WPF.Model
         {
             MAATask maaTask = new MAATask();
             maaTask.name = box.name;
-            maaTask.type = box.type.ToString();
-            if (box.isCombat)
+            maaTask.type = box.type.ConfigName;
+            if (box.IsCombat)
             {
                 maaTask.param = new TaskParam
                 {
-                    diff_task = box.diff_task
+                    diff_task = new Diff_Task
+                    {
+                        AllIn = new Allin
+                        {
+                            enabled = box.AllIn
+                        },
+                        EatCandyWithin24H = new Eatcandywithin24h
+                        {
+                            enabled = box.EatCandyWithin24H
+                        },
+                        EnterTheShow = new Entertheshow
+                        {
+                            next = box.show.ConfigName
+                        },
+                        SetReplaysTimes = new Setreplaystimes
+                        {
+                            text = box.setReplaysTimes.ToString()
+                        },
+                        StageDifficulty = new Stagedifficulty
+                        {
+                            next = box.difficulty
+                        },
+                        TargetStageName = new Targetstagename
+                        {
+                            text = box.stage
+                        }
+                    }
                 };
             }
             return maaTask;

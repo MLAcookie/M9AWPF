@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using MAA1999WPF.Model;
 using System;
 using System.Collections.Generic;
@@ -14,58 +15,19 @@ namespace MAA1999WPF.ViewModel
     public partial class BoxedMAATask : ObservableObject//把标准对象包装，方便框架调用
     {
         public static readonly MAAItemConfig ItemConfig;
-        public static readonly Dictionary<string, bool> TypeIsCombat;
-        public static List<string> UITypeName { get; }
-        static readonly List<string> ConfigTypeName;
-        
+        public static readonly Dictionary<string, bool> TypeWhichIsCombat;
 
         public string name;
-        public string type;
-        public Diff_Task diff_task;
-
+        public TaskType type;
         [ObservableProperty]
-        public bool isCombat = false;
-        public List<string>? Shows;
-        static BoxedMAATask()
-        {
-            StreamReader sr = File.OpenText(@".\Test.json");
-            ItemConfig = JsonSerializer.Deserialize<MAAItemConfig>(sr.ReadToEnd());
-            sr.Close();
-            TypeIsCombat = new Dictionary<string, bool>();
-            UITypeName = new List<string>();
-            ConfigTypeName = new List<string>();
-            foreach (var t in ItemConfig.Types)
-            {
-                TypeIsCombat.Add(t.ConfigName, t.IsCombat);
-                UITypeName.Add(t.UIName);
-                ConfigTypeName.Add(t.ConfigName);
-            }
-        }
-        public static BoxedMAATask ConvertionFrom(MAATask maaTask)//标准对象转为包装的对象
-        {
-            BoxedMAATask box = new BoxedMAATask();
-            if (TypeIsCombat[maaTask.type])
-            {
-                box.diff_task = maaTask.param.diff_task;
-                box.IsCombat = true;
-            }
-            else
-            {
-                box.diff_task = new Diff_Task
-                {
-                    AllIn = new Allin(),
-                    EatCandyWithin24H = new Eatcandywithin24h(),
-                    EnterTheShow = new Entertheshow(),
-                    TargetStageName = new Targetstagename(),
-                    SetReplaysTimes = new Setreplaystimes()
-                };
-                box.diff_task.SetReplaysTimes.text = "1";
-                box.diff_task.StageDifficulty = new Stagedifficulty();
-            }
-            box.name = maaTask.name;
-            box.type = maaTask.type;
-            return box;
-        }
+        public bool allIn;
+        [ObservableProperty]
+        public bool eatCandyWithin24H;
+        public Show? show;
+        public string? stage;
+        public int setReplaysTimes;
+        public string difficulty = "StageDifficulty_None";
+
         public string TaskName
         {
             get
@@ -76,82 +38,75 @@ namespace MAA1999WPF.ViewModel
             {
                 name = value;
                 OnPropertyChanged(nameof(TaskName));
-                OnPropertyChanged(nameof(DisplayHeader));
             }
         }
-        public string DisplayHeader
+        public static List<string> AllTypes
         {
             get
             {
-                return $"{name} - ({type})";
+                return ItemConfig.AllTypeUIName;
             }
         }
-        public int TaskTypeIndex
+        public List<string>? AllShows
         {
             get
             {
-                return ConfigTypeName.IndexOf(type);
+                return type.AllShowUIName;
+            }
+        }
+        public List<string>? AllStages
+        {
+            get
+            {
+                return show?.Stages;
+            }
+        }
+        public int TypeIndex
+        {
+            get
+            {
+                return ItemConfig.Types.IndexOf(type);
             }
             set
             {
-                type = ConfigTypeName[value];
-                OnPropertyChanged(nameof(TaskType));
-                OnPropertyChanged(nameof(DisplayHeader));
+                type = ItemConfig.Types[value];
+                OnPropertyChanged(nameof(AllShows));
+                OnPropertyChanged(nameof(ShowIndex));
+                OnPropertyChanged(nameof(IsCombat));
             }
         }
-        public bool AllIn
+        public int ShowIndex
         {
             get
             {
-                return diff_task.AllIn.enabled;
+                return (type.Shows is null) ? 0 : type.Shows.IndexOf(show);
             }
             set
             {
-                diff_task.AllIn.enabled = value;
-                OnPropertyChanged(nameof(AllIn));
+                if (value >= 0)
+                {
+                    show = type.Shows?[value];
+                }
+                OnPropertyChanged(nameof(AllStages));
+                OnPropertyChanged(nameof(StageIndex));
             }
         }
-        public bool EatCandyWithin24H
+        public int StageIndex
         {
             get
             {
-                return diff_task.EatCandyWithin24H.enabled;
+                return (show is null) ? 0 : show.Stages.IndexOf(stage);
             }
             set
             {
-                diff_task.EatCandyWithin24H.enabled = value;
-                OnPropertyChanged(nameof(EatCandyWithin24H));
-            }
-        }
-        public string EnterTheShow
-        {
-            get
-            {
-                return diff_task.EnterTheShow.next;
-            }
-            set
-            {
-                diff_task.EnterTheShow.next = value;
-                OnPropertyChanged(nameof(EnterTheShow));
-            }
-        }
-        public string TargetStageName
-        {
-            get
-            {
-                return diff_task.TargetStageName.text;
-            }
-            set
-            {
-                diff_task.TargetStageName.text = value;
-                OnPropertyChanged(nameof(TargetStageName));
+                stage = show!.Stages[value - 1];
             }
         }
         public int SetReplaysTimes
         {
             get
             {
-                return int.Parse(diff_task.SetReplaysTimes.text);
+                return setReplaysTimes;
             }
             set
             {
@@ -163,8 +118,7 @@ namespace MAA1999WPF.ViewModel
                 {
                     value = 1;
                 }
-                diff_task.SetReplaysTimes.text = value.ToString();
-                Trace.WriteLine(value.ToString());
+                setReplaysTimes = value;
                 OnPropertyChanged(nameof(SetReplaysTimes));
             }
         }
@@ -172,7 +126,7 @@ namespace MAA1999WPF.ViewModel
         {
             get
             {
-                if (diff_task.StageDifficulty.next == "StageDifficulty_Hard")
+                if (difficulty == "StageDifficulty_Hard")
                 {
                     return true;
                 }
@@ -185,14 +139,61 @@ namespace MAA1999WPF.ViewModel
             {
                 if (value)
                 {
-                    diff_task.StageDifficulty.next = "StageDifficulty_Hard";
+                    difficulty = "StageDifficulty_Hard";
                 }
                 else
                 {
-                    diff_task.StageDifficulty.next = "StageDifficulty_None";
+                    difficulty = "StageDifficulty_None";
                 }
                 OnPropertyChanged(nameof(IsDifficaulty));
             }
+        }
+        public bool IsCombat
+        {
+            get
+            {
+                return type.IsCombat;
+            }
+        }
+
+        static BoxedMAATask()
+        {
+            StreamReader sr = File.OpenText(@".\ItemsConfig.json");
+            ItemConfig = JsonSerializer.Deserialize<MAAItemConfig>(sr.ReadToEnd());
+            sr.Close();
+            ItemConfig!.Init();
+            TypeWhichIsCombat = new Dictionary<string, bool>();
+            foreach (var t in ItemConfig.Types)
+            {
+                TypeWhichIsCombat.Add(t.ConfigName, t.IsCombat);
+            }
+        }
+        public static BoxedMAATask ConvertionFrom(MAATask maaTask)//标准对象转为包装的对象
+        {
+            BoxedMAATask box = new()
+            {
+                name = maaTask.name,
+                type = ItemConfig.FromTypeNameGetType![maaTask.type],
+            };
+            if (TypeWhichIsCombat[maaTask.type])
+            {
+                box.allIn = maaTask.param.diff_task!.AllIn.enabled;
+                box.eatCandyWithin24H = maaTask.param.diff_task!.EatCandyWithin24H.enabled;
+                box.show = box.type.FromShowNameGetShow![maaTask.param.diff_task.EnterTheShow.next];
+                box.stage = maaTask.param.diff_task.TargetStageName.text;
+                box.setReplaysTimes = int.Parse(maaTask.param.diff_task!.SetReplaysTimes.text);
+                box.difficulty = maaTask.param.diff_task.StageDifficulty.next;
+            }
+            else
+            {
+                box.allIn = false;
+                box.eatCandyWithin24H = false;
+                box.show = null;
+                box.stage = null;
+                box.setReplaysTimes = 1;
+                box.difficulty = "StageDifficulty_None";
+            }
+            return box;
         }
     }
 }

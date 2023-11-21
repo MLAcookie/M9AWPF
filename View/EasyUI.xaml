@@ -1,0 +1,390 @@
+﻿<UserControl
+    x:Class="MAA1999WPF.View.EasyUI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MAA1999WPF.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    xmlns:vm="clr-namespace:MAA1999WPF.ViewModel"
+    d:DesignHeight="600"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.DataContext>
+        <vm:EasyUIViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.4*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Margin="20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ToolTip>
+                <TextBlock Text="按下启动，会保存设置的config" />
+            </Grid.ToolTip>
+            <Grid
+                Width="Auto"
+                Height="Auto"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Command="{Binding StartMAACommand}"
+                    Content="Start"
+                    FontSize="24" />
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="10"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Text="← 按下这个就启动了" />
+            </Grid>
+            <StackPanel Grid.Row="1">
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center" Text="ADB路径:" />
+                    <TextBox Grid.Column="1" Text="{Binding ADBPath}" />
+                </Grid>
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center" Text="ADB端口:" />
+                    <ui:NumberBox
+                        Grid.Column="1"
+                        SpinButtonPlacementMode="Compact"
+                        Value="{Binding ADBPort}" />
+                </Grid>
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center" Text="客户端类型:" />
+                    <ComboBox
+                        Grid.Column="1"
+                        Width="100"
+                        SelectedIndex="{Binding Client}">
+                        <ComboBoxItem Content="官服" />
+                        <ComboBoxItem Content="Bilibili" />
+                    </ComboBox>
+                </Grid>
+                <Separator Margin="5" />
+                <TextBlock
+                    Margin="0,5,0,0"
+                    FontSize="14"
+                    Text=" + 新的任务" />
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="新任务名" />
+                    <TextBox
+                        Name="GetWidth"
+                        Grid.Column="1"
+                        Text="{Binding NewTaskName}" />
+                </Grid>
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="任务类型" />
+                    <ComboBox
+                        Grid.Column="1"
+                        Width="{Binding ElementName=GetWidth, Path=ActualWidth}"
+                        ItemsSource="{Binding AllTaskTypes}"
+                        SelectedIndex="{Binding TypeIndex}" />
+                </Grid>
+                <StackPanel Name="CombatSetting_StackPanel" IsEnabled="{Binding IsCombat}">
+                    <Grid Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="刷活性" />
+                        <CheckBox
+                            Name="AllIn_CheckBox"
+                            Grid.Column="1"
+                            IsChecked="{Binding AllIn}" />
+                    </Grid>
+                    <Grid Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="吃完24h内的糖" />
+                        <CheckBox Grid.Column="1" IsChecked="{Binding Eat24hCandy}" />
+                    </Grid>
+                    <Grid Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="章节" />
+                        <ComboBox
+                            Grid.Column="1"
+                            Width="{Binding ElementName=GetWidth, Path=ActualWidth}"
+                            ItemsSource="{Binding AllShows}"
+                            SelectedIndex="{Binding ShowIndex}" />
+                    </Grid>
+                    <Grid Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="关卡" />
+                        <ComboBox
+                            Grid.Column="1"
+                            Width="{Binding ElementName=GetWidth, Path=ActualWidth}"
+                            ItemsSource="{Binding AllStages}"
+                            SelectedIndex="{Binding StageIndex}" />
+                    </Grid>
+                    <Grid Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="困难？" />
+                        <CheckBox Grid.Column="1" IsChecked="{Binding IsDifficulty}" />
+                    </Grid>
+                    <Grid Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="单次扫荡次数" />
+                        <ui:NumberBox
+                            Grid.Column="1"
+                            SpinButtonPlacementMode="Compact"
+                            Value="{Binding SetReplaysTimes, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </StackPanel>
+                <Button
+                    Margin="10,5,0,0"
+                    Command="{Binding AddNewTaskCommand}"
+                    CommandParameter="{Binding ElementName=TaskList_ItemControl, Path=Items}"
+                    Content="Add" />
+            </StackPanel>
+        </Grid>
+        <ui:ScrollViewerEx Grid.Column="1">
+            <StackPanel Margin="20,0">
+                <TextBlock
+                    Margin="0,10"
+                    FontSize="16"
+                    Text="任务列表:" />
+                <ItemsControl Name="TaskList_ItemControl" ItemsSource="{Binding AllMAATasks}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="vm:BoxedMAATask">
+                            <StackPanel>
+                                <Grid>
+                                    <TextBlock
+                                        Name="Header_TextBlock"
+                                        Margin="10,7,0,7"
+                                        Text="{Binding TaskName}"
+                                        Visibility="Visible">
+                                        <TextBlock.ToolTip>
+                                            <TextBlock Text="点击即可更改任务名字" />
+                                        </TextBlock.ToolTip>
+                                        <TextBlock.Triggers>
+                                            <EventTrigger RoutedEvent="MouseLeftButtonDown">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Header_TextBlock" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:.1" Value="{x:Static Visibility.Collapsed}" />
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Header_TextBox" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:.1" Value="{x:Static Visibility.Visible}" />
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </TextBlock.Triggers>
+                                        <TextBlock.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Click="MoveUp_MenuItem_Click" Header="MoveUp">
+                                                    <MenuItem.Icon>
+                                                        <TextBlock FontFamily="/MAA1999WPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf062;" />
+                                                    </MenuItem.Icon>
+                                                </MenuItem>
+                                                <MenuItem Click="MoveDown_MenuItem_Click" Header="MoveDown">
+                                                    <MenuItem.Icon>
+                                                        <TextBlock FontFamily="/MAA1999WPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf063;" />
+                                                    </MenuItem.Icon>
+                                                </MenuItem>
+                                                <MenuItem Click="Delete_MenuItem_Click" Header="Delete">
+                                                    <MenuItem.Icon>
+                                                        <TextBlock FontFamily="/MAA1999WPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf2ed;" />
+                                                    </MenuItem.Icon>
+                                                </MenuItem>
+                                            </ContextMenu>
+                                        </TextBlock.ContextMenu>
+                                    </TextBlock>
+                                    <TextBox
+                                        Name="Header_TextBox"
+                                        Text="{Binding TaskName, UpdateSourceTrigger=PropertyChanged}"
+                                        Visibility="Collapsed">
+                                        <TextBox.Triggers>
+                                            <EventTrigger RoutedEvent="MouseLeave">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Header_TextBlock" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:.1" Value="{x:Static Visibility.Visible}" />
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Header_TextBox" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:.1" Value="{x:Static Visibility.Collapsed}" />
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </TextBox.Triggers>
+                                    </TextBox>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Margin="30,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="任务类型" />
+                                    <ComboBox
+                                        Grid.Column="1"
+                                        Width="{Binding ElementName=GetWidth, Path=ActualWidth}"
+                                        ItemsSource="{Binding AllTypes}"
+                                        SelectedIndex="{Binding TypeIndex}" />
+                                    <Separator
+                                        Name="GetWidth"
+                                        Grid.Column="1"
+                                        Visibility="Hidden" />
+                                </Grid>
+                                <StackPanel Name="CombatSetting_StackPanel">
+                                    <Grid Margin="0,5,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Margin="30,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Text="刷活性" />
+                                        <CheckBox Grid.Column="1" IsChecked="{Binding AllIn}" />
+                                    </Grid>
+                                    <Grid Margin="0,5,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Margin="30,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Text="吃完24h内的糖" />
+                                        <CheckBox Grid.Column="1" IsChecked="{Binding EatCandyWithin24H}" />
+                                    </Grid>
+                                    <Grid Margin="0,5,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Margin="30,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Text="章节" />
+                                        <ComboBox
+                                            Grid.Column="1"
+                                            Width="{Binding ElementName=GetWidth, Path=ActualWidth}"
+                                            ItemsSource="{Binding AllShows}"
+                                            SelectedIndex="{Binding ShowIndex}" />
+                                    </Grid>
+                                    <Grid Margin="0,5,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Margin="30,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Text="关卡" />
+                                        <ComboBox
+                                            Grid.Column="1"
+                                            Width="{Binding ElementName=GetWidth, Path=ActualWidth}"
+                                            ItemsSource="{Binding AllStages}"
+                                            SelectedItem="{Binding StageIndex}" />
+                                    </Grid>
+                                    <Grid Margin="0,5,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Margin="30,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Text="困难？" />
+                                        <CheckBox Grid.Column="1" IsChecked="{Binding IsDifficaulty}" />
+                                    </Grid>
+                                    <Grid Margin="0,5,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Margin="30,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Text="单次扫荡次数" />
+                                        <ui:NumberBox
+                                            Grid.Column="1"
+                                            SpinButtonPlacementMode="Compact"
+                                            Value="{Binding SetReplaysTimes, UpdateSourceTrigger=PropertyChanged}" />
+                                    </Grid>
+                                </StackPanel>
+                                <Separator Margin="0,5,0,5" />
+                            </StackPanel>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsCombat}" Value="False">
+                                    <Setter TargetName="CombatSetting_StackPanel" Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ui:ScrollViewerEx>
+    </Grid>
+</UserControl>

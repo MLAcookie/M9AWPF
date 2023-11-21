@@ -14,3 +14,4 @@
 ## 使用的Nuget包
 [modern WPF](https://github.com/Kinnara/ModernWpf)  
 [.net community toolkit](https://github.com/CommunityToolkit/dotnet)  
+WPF Behavior

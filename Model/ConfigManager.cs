@@ -19,14 +19,15 @@ namespace MAA1999WPF.Model
     }
     internal class ConfigManager
     {
+        const string path= @".\config.json";
         static string targetConfigFilepath;
         static ConfigObject configObject;
         public static List<BoxedMAATask> boxedMAATasks;
-        public ConfigManager(string targetConfigFilepath)//按路径初始化
+        static ConfigManager()//按路径初始化
 
         {
-            ConfigManager.targetConfigFilepath = targetConfigFilepath;
-            StreamReader sr = File.OpenText(targetConfigFilepath);
+            targetConfigFilepath = path;
+            StreamReader sr = File.OpenText(path);
             string jsonString = sr.ReadToEnd();
             configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString);
             sr.Close();
