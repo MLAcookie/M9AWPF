@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MAA1999WPF.ViewModel
+namespace M9AWPF.ViewModel
 {
     [Serializable]
     public class Show

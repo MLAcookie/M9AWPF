@@ -1,4 +1,4 @@
-﻿using MAA1999WPF.ViewModel;
+﻿using M9AWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,12 +15,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MAA1999WPF.View
+namespace M9AWPF.View
 {
     /// <summary>
     /// EasyUI.xaml 的交互逻辑
     /// </summary>
-    using VM = MAA1999WPF.ViewModel.EasyUIViewModel;
+    using VM = M9AWPF.ViewModel.EasyUIViewModel;
     public partial class EasyUI : UserControl
     {
         public EasyUI()

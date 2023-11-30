@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MAA1999WPF.Model;
+using M9AWPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace MAA1999WPF.ViewModel
+namespace M9AWPF.ViewModel
 {
     public partial class EasyUIViewModel : ObservableObject
     {

@@ -1,4 +1,4 @@
-﻿using MAA1999WPF.ViewModel;
+﻿using M9AWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Shapes;
 using System.Diagnostics;
 
-namespace MAA1999WPF.Model
+namespace M9AWPF.Model
 {
     //管理config的类，操纵的是从config文件反序列化得来的对象
     public enum Client

@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MAA1999WPF.Model;
+using M9AWPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace MAA1999WPF.ViewModel
+namespace M9AWPF.ViewModel
 {
     public partial class BoxedMAATask : ObservableObject//把标准对象包装，方便框架调用
     {
