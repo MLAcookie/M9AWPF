@@ -63,7 +63,7 @@
                     <TextBlock VerticalAlignment="Center" Text="ADB端口:" />
                     <ui:NumberBox
                         Grid.Column="1"
-                        SpinButtonPlacementMode="Compact"
+                        SpinButtonPlacementMode="Hidden"
                         Value="{Binding ADBPort}" />
                 </Grid>
                 <Grid Margin="0,5,0,0">
