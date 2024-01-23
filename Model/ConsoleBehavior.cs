@@ -9,7 +9,7 @@ namespace M9AWPF.Model
 {
     internal class ConsoleBehavior
     {
-        const string M9A_PATH = @".\M9A_CLI.exe";
+        const string M9A_PATH = @"./M9A-Bin/M9A_CLI.exe";
         readonly ProcessStartInfo m9aStartInfo = new()
         {
             FileName = M9A_PATH,

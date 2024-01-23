@@ -158,7 +158,7 @@ namespace M9AWPF.ViewModel
 
         static BoxedMAATask()
         {
-            StreamReader sr = File.OpenText(@".\ItemsConfig.json");
+            StreamReader sr = File.OpenText(@"./ItemsConfig.json");
             ItemConfig = JsonSerializer.Deserialize<MAAItemConfig>(sr.ReadToEnd());
             sr.Close();
             ItemConfig!.Init();

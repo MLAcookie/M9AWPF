@@ -19,7 +19,7 @@ namespace M9AWPF.Model
     }
     internal class ConfigManager
     {
-        const string path= @".\config.json";
+        const string path= @"./M9A-Bin/config.json";
         static string targetConfigFilepath;
         static ConfigObject configObject;
         public static List<BoxedMAATask> boxedMAATasks;
