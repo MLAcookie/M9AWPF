@@ -17,43 +17,46 @@ namespace M9AWPF.Model
         Official = 1,
         Bilibili = 2,
     }
+
     internal class ConfigManager
     {
-        const string path= @"./M9A-Bin/config.json";
+        private const string Path = @"./M9A-Bin/config.json";
         static string targetConfigFilepath;
         static ConfigObject configObject;
-        public static List<BoxedMAATask> boxedMAATasks;
-        static ConfigManager()//按路径初始化
+        private static List<BoxedMAATask> boxedMAATasks;
 
+        static ConfigManager() //按路径初始化
         {
-            targetConfigFilepath = path;
-            StreamReader sr = File.OpenText(path);
+            targetConfigFilepath = Path;
+            
+            StreamReader sr = File.OpenText(Path);
             string jsonString = sr.ReadToEnd();
             configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString);
             sr.Close();
         }
-        public static void SaveConfig()//保存到原文件
+
+        public static void SaveConfig() //保存到原文件
         {
             List<MAATask> maaTasks = new List<MAATask>();
             foreach (var task in boxedMAATasks)
             {
                 maaTasks.Add(MAATask.ConvertionFrom(task));
             }
+
             configObject.tasks = maaTasks;
             string jsonString = JsonSerializer.Serialize(configObject);
             jsonString = jsonString.Replace("null", "{}");
             File.WriteAllText(targetConfigFilepath, jsonString, new UTF8Encoding(false));
         }
+
         public static void ChangeADBAddress(string address)
         {
             configObject.adb_address = address;
         }
-        public static Client Client//自动属性，Clent和int互转
+
+        public static Client Client //自动属性，Clent和int互转
         {
-            get
-            {
-                return (Client)configObject.client_type;
-            }
+            get { return (Client)configObject.client_type; }
             set
             {
                 switch (value)
@@ -67,36 +70,31 @@ namespace M9AWPF.Model
                 }
             }
         }
-        public static string ADBPath//修改ADB路径
+
+        public static string ADBPath //修改ADB路径
         {
-            get
-            {
-                return configObject.adb;
-            }
-            set
-            {
-                configObject.adb = value;
-            }
+            get { return configObject.adb; }
+            set { configObject.adb = value; }
         }
-        public static int ADBPort//修改端口
+
+        public static int ADBPort //修改端口
         {
             get
             {
                 int temp = configObject.adb_address.IndexOf(":") + 1;
                 return int.Parse(configObject.adb_address[temp..]);
             }
-            set
-            {
-                configObject.adb_address = $"127.0.0.1:{value}";
-            }
+            set { configObject.adb_address = $"127.0.0.1:{value}"; }
         }
-        public static List<BoxedMAATask> GetAllMAATasks()//获取所有的已包装的对象
+
+        public static List<BoxedMAATask> GetAllMAATasks() //获取所有的已包装的对象
         {
             List<BoxedMAATask> list = new List<BoxedMAATask>();
             foreach (var task in configObject.tasks)
             {
                 list.Add(BoxedMAATask.ConvertionFrom(task));
             }
+
             boxedMAATasks = list;
             return list;
         }
