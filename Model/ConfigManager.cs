@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using M9AWPF.Constants;
 
 namespace M9AWPF.Model
 {
@@ -20,16 +21,16 @@ namespace M9AWPF.Model
 
     internal class ConfigManager
     {
-        private const string Path = @"./M9A-Bin/config.json";
+        private static string _path = @Configurations.M9AConfig;
         static string targetConfigFilepath;
         static ConfigObject configObject;
         private static List<BoxedMAATask> boxedMAATasks;
 
         static ConfigManager() //按路径初始化
         {
-            targetConfigFilepath = Path;
-            
-            StreamReader sr = File.OpenText(Path);
+            targetConfigFilepath = _path;
+
+            StreamReader sr = File.OpenText(_path);
             string jsonString = sr.ReadToEnd();
             configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString);
             sr.Close();
