@@ -1,5 +1,5 @@
 # M9AWPF
-拿WPF框架写的一个M9A的UI  
+拿WPF框架写的一个[M9A](https://github.com/MaaAssistantArknights/M9A)的UI  
 (本来想用Avalonia写的，但没写明白
 
 现在的状态只是能用，很多东西还不是最优化  
