@@ -14,7 +14,7 @@ namespace M9AWPF.Model
 
         readonly ProcessStartInfo m9aStartInfo = new()
         {
-            FileName = Configurations.M9AConfig,
+            FileName = Configurations.M9ABin,
             RedirectStandardInput = true,
             RedirectStandardOutput = false,
             CreateNoWindow = false,
