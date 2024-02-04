@@ -24,7 +24,7 @@ namespace M9AWPF.Model
     [Serializable]
     public class MAATask
     {
-        public static MAATask ConvertionFrom(BoxedMAATask box)//从内部的编辑对象转换为标准对象
+        public static MAATask ConvertionFrom(BoxedMAATask box) //从内部的编辑对象转换为标准对象
         {
             MAATask maaTask = new MAATask();
             maaTask.name = box.name;
@@ -62,8 +62,10 @@ namespace M9AWPF.Model
                     }
                 };
             }
+
             return maaTask;
         }
+
         public string name { get; set; }
         public TaskParam param { get; set; }
         public string type { get; set; }
@@ -121,5 +123,4 @@ namespace M9AWPF.Model
     {
         public string text { get; set; }
     }
-
 }

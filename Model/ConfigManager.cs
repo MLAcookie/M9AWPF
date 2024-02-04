@@ -16,20 +16,27 @@ namespace M9AWPF.Model
     internal class ConfigManager
     {
         // static string targetConfigFilepath;
-        static ConfigObject configObject;
+        private static readonly ConfigObject configObject;
         private static List<BoxedMAATask> boxedMAATasks;
 
-        static ConfigManager() //按路径初始化
+        /// <summary>
+        /// 按路径初始化
+        /// </summary>
+        /// <exception cref="FileNotFoundException">default-config.json找不到时抛出</exception>
+        /// <exception cref="FileLoadException">default-config.json读取失败时抛出</exception>
+        static ConfigManager()
         {
             Console.Out.WriteLine("Reading json config...");
 
             // M9A Release默认不带config.json文件，会导致报错
-            // 如果不带config.json，则复制default-config.json
+            // 考虑通过自带的default-config.json作为初始配置文件
+            // 先检查default-config.json文件是否存在
             if (!File.Exists(Configurations.M9AConfigDefault))
             {
                 throw new FileNotFoundException("File not Found: default-config.json");
             }
 
+            // 如果不带config.json，则复制default-config.json
             if (!File.Exists(Configurations.M9AConfig))
             {
                 Console.Out.WriteLine("M9A config file not found");
@@ -39,12 +46,16 @@ namespace M9AWPF.Model
 
             StreamReader sr = File.OpenText(Configurations.M9AConfig);
             string jsonString = sr.ReadToEnd();
+            // 如果json文件读取失败，则报错退出
             configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString) ??
                            throw new FileLoadException("Failed to read config.json");
             sr.Close();
         }
 
-        public static void SaveConfig() //保存到原文件
+        /// <summary>
+        /// 保存到原文件
+        /// </summary>
+        public static void SaveConfig()
         {
             List<MAATask> maaTasks = new List<MAATask>();
             foreach (var task in boxedMAATasks)
