@@ -11,7 +11,8 @@ release里面有做好的整合包
 
 ## Build
 git下来后用vs打开应该就好了  
-然后这个项目没有带M9A的文件，需要自己下载
+然后这个项目没有带M9A的文件，需要自己下载  
+下载后放置在 $(SolutionDir)M9A-Bin 文件夹下即可
 
 ## 使用的Nuget包
 [modern WPF](https://github.com/Kinnara/ModernWpf)  
