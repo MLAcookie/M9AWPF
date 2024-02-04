@@ -15,7 +15,7 @@ namespace M9AWPF.Model
 {
     internal class ConfigManager
     {
-        static string targetConfigFilepath;
+        // static string targetConfigFilepath;
         static ConfigObject configObject;
         private static List<BoxedMAATask> boxedMAATasks;
 
@@ -55,7 +55,7 @@ namespace M9AWPF.Model
             configObject.tasks = maaTasks;
             string jsonString = JsonSerializer.Serialize(configObject);
             jsonString = jsonString.Replace("null", "{}");
-            File.WriteAllText(targetConfigFilepath, jsonString, new UTF8Encoding(false));
+            File.WriteAllText(Configurations.M9AConfig, jsonString, new UTF8Encoding(false));
         }
 
         public static void ChangeADBAddress(string address)
