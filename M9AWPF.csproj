@@ -30,6 +30,10 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         
+        <None Include="$(SolutionDir)Resource/**">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        
         <Resource Include="$(SolutionDir)Font/fa.ttf">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>

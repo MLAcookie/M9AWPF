@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
+using M9AWPF.Constants;
+
 namespace M9AWPF.ViewModel
 {
     public partial class EasyUIViewModel : ObservableObject
@@ -37,7 +39,7 @@ namespace M9AWPF.ViewModel
             }
             set
             {
-                ConfigManager.Client = (Client)(value + 1);
+                ConfigManager.Client = (Configurations.Client)(value + 1);
             }
         }
         public static string ADBPath

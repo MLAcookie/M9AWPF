@@ -9,30 +9,38 @@ using System.Threading.Tasks;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using M9AWPF.Constants;
+using M9AWPF.Constants;
 
 namespace M9AWPF.Model
 {
-    //管理config的类，操纵的是从config文件反序列化得来的对象
-    public enum Client
-    {
-        Official = 1,
-        Bilibili = 2,
-    }
-
     internal class ConfigManager
     {
-        private static string _path = @Configurations.M9AConfig;
         static string targetConfigFilepath;
         static ConfigObject configObject;
         private static List<BoxedMAATask> boxedMAATasks;
 
         static ConfigManager() //按路径初始化
         {
-            targetConfigFilepath = _path;
+            Console.Out.WriteLine("Reading json config...");
 
-            StreamReader sr = File.OpenText(_path);
+            // M9A Release默认不带config.json文件，会导致报错
+            // 如果不带config.json，则复制default-config.json
+            if (!File.Exists(Configurations.M9AConfigDefault))
+            {
+                throw new FileNotFoundException("File not Found: default-config.json");
+            }
+
+            if (!File.Exists(Configurations.M9AConfig))
+            {
+                Console.Out.WriteLine("M9A config file not found");
+                File.Copy(sourceFileName: Configurations.M9AConfigDefault,
+                    destFileName: Configurations.M9AConfig, overwrite: true);
+            }
+
+            StreamReader sr = File.OpenText(Configurations.M9AConfig);
             string jsonString = sr.ReadToEnd();
-            configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString);
+            configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString) ??
+                           throw new FileLoadException("Failed to read config.json");
             sr.Close();
         }
 
@@ -55,17 +63,20 @@ namespace M9AWPF.Model
             configObject.adb_address = address;
         }
 
-        public static Client Client //自动属性，Clent和int互转
+        /// <summary>
+        /// 自动属性，Clent和int互转
+        /// </summary>
+        public static Configurations.Client Client
         {
-            get { return (Client)configObject.client_type; }
+            get { return (Configurations.Client)configObject.client_type; }
             set
             {
                 switch (value)
                 {
-                    case Client.Official:
+                    case Configurations.Client.Official:
                         configObject.client_type = 1;
                         break;
-                    case Client.Bilibili:
+                    case Configurations.Client.Bilibili:
                         configObject.client_type = 2;
                         break;
                 }
