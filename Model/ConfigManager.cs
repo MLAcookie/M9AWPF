@@ -19,19 +19,36 @@ namespace M9AWPF.Model
     }
     internal class ConfigManager
     {
-        const string path= @"./M9A-Bin/config.json";
+        const string path = @"./M9A-Bin/config.json";
         static string targetConfigFilepath;
         static ConfigObject configObject;
         public static List<BoxedMAATask> boxedMAATasks;
-        static ConfigManager()//按路径初始化
 
+        static ConfigManager()//按路径初始化
         {
-            targetConfigFilepath = path;
-            StreamReader sr = File.OpenText(path);
-            string jsonString = sr.ReadToEnd();
-            configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString);
-            sr.Close();
+            // 存在文件则打开，没有文件则创建文件
+            if (File.Exists(path))
+            {
+                targetConfigFilepath = path;
+                StreamReader sr = File.OpenText(path);
+                string jsonString = sr.ReadToEnd();
+                configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString);
+                sr.Close();
+            }
+            else
+            {
+                // 创建一个新文件
+                var sr = File.Open(path, FileMode.CreateNew);
+                sr.Close();
+
+                // 初始化json object，并且将其默认内容写入文件
+                configObject = new();
+                string jsonString = JsonSerializer.Serialize(configObject);
+                jsonString = jsonString.Replace("null", "{}");
+                File.WriteAllText(path, jsonString, new UTF8Encoding(false));
+            }
         }
+
         public static void SaveConfig()//保存到原文件
         {
             List<MAATask> maaTasks = new List<MAATask>();
@@ -82,6 +99,7 @@ namespace M9AWPF.Model
         {
             get
             {
+                if (configObject.adb_address == null || configObject.adb_address == string.Empty) return -1;
                 int temp = configObject.adb_address.IndexOf(":") + 1;
                 return int.Parse(configObject.adb_address[temp..]);
             }

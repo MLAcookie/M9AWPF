@@ -11,12 +11,12 @@ namespace M9AWPF.Model
     [Serializable]
     public class ConfigObject
     {
-        public string adb { get; set; }
-        public string adb_address { get; set; }
+        public string adb { get; set; } = "";
+        public string adb_address { get; set; } = "";
         public int client_type { get; set; }
         public bool debug { get; set; }
         public int screencap { get; set; }
-        public List<MAATask> tasks { get; set; }
+        public List<MAATask> tasks { get; set; } = new List<MAATask>(); // 初始化避免为null
         public int touch { get; set; }
         public string version { get; set; } = "v0.2.0";
     }
