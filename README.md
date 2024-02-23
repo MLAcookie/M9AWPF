@@ -1,8 +1,7 @@
 **注意：M9A v1.x的适配工作还在进行中，当前暂未适配新版本M9A**
 
 # M9AWPF
-拿WPF框架写的一个M9A的UI  
-(本来想用Avalonia写的，但没写明白
+拿WPF框架写的一个[M9A](https://github.com/MaaAssistantArknights/M9A)的UI  
 
 现在的状态只是能用，很多东西还不是最优化  
 (WPF方面还只是个小白  
