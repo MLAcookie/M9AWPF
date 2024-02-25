@@ -5,29 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace M9AWPF.Model
+namespace M9AWPF.Model;
+
+public class ConsoleBehavior
 {
-    internal class ConsoleBehavior
-    {
-        const string M9A_PATH = @"./M9A-Bin/M9A_CLI.exe";
-        readonly ProcessStartInfo m9aStartInfo = new()
-        {
-            FileName = M9A_PATH,
-            RedirectStandardInput = true,
-            RedirectStandardOutput = false,
-            CreateNoWindow = false,
-            UseShellExecute = false,
-        };
-        readonly Process m9a;
-        public ConsoleBehavior()
-        {
-            m9a = new Process { StartInfo = m9aStartInfo };
-        }
-        public void Start()
-        {
-            m9a.Start();
-            m9a.WaitForExit();
-            m9a.Close();
-        }
-    }
+	const string M9A_PATH = @"./M9A-Bin/MaaPiCli.exe";
+	private readonly Process m9a = new()
+	{
+		StartInfo = new ProcessStartInfo
+		{
+			FileName = M9A_PATH,
+			RedirectStandardInput = true,
+			RedirectStandardOutput = false,
+			CreateNoWindow = false,
+			UseShellExecute = false,
+			Arguments = "-d", // 使MAA不进行交互，直接运行
+		}
+	};
+
+	public void Start()
+	{
+		m9a.Start();
+		m9a.WaitForExit();
+		m9a.Close();
+	}
 }

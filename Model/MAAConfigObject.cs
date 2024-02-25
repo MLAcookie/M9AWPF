@@ -1,125 +1,150 @@
-﻿using M9AWPF.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
-namespace M9AWPF.Model
+namespace M9AWPF.Model;
+
+
+/// <summary>
+/// 应用启动时读取interface文件，指示配置中可选的字段及其value
+/// </summary>
+public static class ConfigInterface
 {
-    //这里的所有代码都是用来json序列化的
-    [Serializable]
-    public class ConfigObject
-    {
-        public string adb { get; set; } = "";
-        public string adb_address { get; set; } = "";
-        public int client_type { get; set; }
-        public bool debug { get; set; }
-        public int screencap { get; set; }
-        public List<MAATask> tasks { get; set; } = new List<MAATask>(); // 初始化避免为null
-        public int touch { get; set; }
-        public string version { get; set; } = "v0.2.0";
-    }
+	private const string path = @"./M9A-Bin/interface.json";
 
-    [Serializable]
-    public class MAATask
-    {
-        public static MAATask ConvertionFrom(BoxedMAATask box)//从内部的编辑对象转换为标准对象
-        {
-            MAATask maaTask = new MAATask();
-            maaTask.name = box.name;
-            maaTask.type = box.type.ConfigName;
-            if (box.IsCombat)
-            {
-                maaTask.param = new TaskParam
-                {
-                    diff_task = new Diff_Task
-                    {
-                        AllIn = new Allin
-                        {
-                            enabled = box.AllIn
-                        },
-                        EatCandyWithin24H = new Eatcandywithin24h
-                        {
-                            enabled = box.EatCandyWithin24H
-                        },
-                        EnterTheShow = new Entertheshow
-                        {
-                            next = box.show.ConfigName
-                        },
-                        SetReplaysTimes = new Setreplaystimes
-                        {
-                            text = box.setReplaysTimes.ToString()
-                        },
-                        StageDifficulty = new Stagedifficulty
-                        {
-                            next = box.difficulty
-                        },
-                        TargetStageName = new Targetstagename
-                        {
-                            text = box.stage
-                        }
-                    }
-                };
-            }
-            return maaTask;
-        }
-        public string name { get; set; }
-        public TaskParam param { get; set; }
-        public string type { get; set; }
-    }
+	/// <summary>
+	/// option及其所对应的能取的值
+	/// </summary>
+	public static readonly Dictionary<string, List<string>> option = new();
 
-    [Serializable]
-    public class TaskParam
-    {
-        public Diff_Task? diff_task { get; set; }
-    }
+	/// <summary>
+	/// 任务，每个任务由名称和一系列选项组成
+	/// </summary>
+	public class Task
+	{
+		/// <summary>
+		/// 任务名
+		/// </summary>
+		public string name = string.Empty;
 
-    [Serializable]
-    public class Diff_Task
-    {
-        public Allin AllIn { get; set; }
-        public Eatcandywithin24h EatCandyWithin24H { get; set; }
-        public Entertheshow EnterTheShow { get; set; }
-        public Setreplaystimes SetReplaysTimes { get; set; }
-        public Stagedifficulty StageDifficulty { get; set; }
-        public Targetstagename TargetStageName { get; set; }
-    }
+		/// <summary>
+		/// 任务选项
+		/// </summary>
+		public List<string> option = new();
+	}
 
-    [Serializable]
-    public class Allin
-    {
-        public bool enabled { get; set; }
-    }
+	/// <summary>
+	/// 指示任务，具体内容见Task
+	/// </summary>
+	public static readonly List<Task> task = new();
 
-    [Serializable]
-    public class Eatcandywithin24h
-    {
-        public bool enabled { get; set; }
-    }
+	/// <summary>
+	/// 指示玩的是哪个服的游戏
+	/// </summary>
+	public static readonly List<string> resource = new();
 
-    [Serializable]
-    public class Entertheshow
-    {
-        public string next { get; set; }
-    }
+	static ConfigInterface()
+	{
+		string jsonstring = File.ReadAllText(path);
+		var json = JsonNode.Parse(jsonstring)!;
 
-    [Serializable]
-    public class Setreplaystimes
-    {
-        public string text { get; set; }
-    }
+		// 获取所有options
+		var option_obj = json["option"]!.AsObject();
+		foreach (var item in option_obj)
+		{
+			List<string> vals = new();
+			var arr = item.Value!["cases"]!.AsArray();
+			foreach (var val in arr)
+			{
+				vals.Add(val!["name"]!.ToString());
+			}
 
-    [Serializable]
-    public class Stagedifficulty
-    {
-        public string next { get; set; }
-    }
+			option.Add(item.Key, vals);
+		}
 
-    [Serializable]
-    public class Targetstagename
-    {
-        public string text { get; set; }
-    }
+		// 获取所有task
+		var tasks = json["task"]!.AsArray();
+		foreach (var item in tasks)
+		{
+			var task_new = new Task()
+			{
+				name = item!["name"]!.ToString(),
+			};
 
+			var option = item!["option"];
+			if (option != null)
+			{
+				var tmp = option.AsArray();
+				foreach (var tmp_it in tmp)
+				{
+					if (tmp_it == null) continue;
+					task_new.option.Add(tmp_it!.ToString());
+				}
+			}
+
+			task.Add(task_new);
+		}
+
+		// 获取所有服务器
+		var resources = json["resource"]!.AsArray()!;
+		foreach (var item in resources)
+		{
+			resource.Add(item!["name"]!.ToString());
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// <summary>
+/// 该类指示MAA config json文件内容
+/// </summary>
+[Serializable]
+public class ConfigObject
+{
+	[Serializable]
+	public class Controller
+	{
+		public string adb_path { get; set; } = string.Empty;
+		public string address { get; set; } = string.Empty;
+		public string name { get; set; } = "ADB 默认方式";
+	}
+
+	[Serializable]
+	public class Option
+	{
+		public string name { get; set; } = string.Empty;
+		public string value { get; set; } = string.Empty;
+	}
+
+	[Serializable]
+	public class Task
+	{
+		public string name { get; set; } = string.Empty;
+		public List<Option> option { get; set; } = new();
+	}
+
+	public Controller controller { get; set; } = new();
+	public string resource { get; set; } = "官服";
+	public List<Task> task { get; set; } = new(); // 初始化避免为null
 }
