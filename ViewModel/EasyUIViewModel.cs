@@ -3,214 +3,162 @@ using CommunityToolkit.Mvvm.Input;
 using M9AWPF.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace M9AWPF.ViewModel
+namespace M9AWPF.ViewModel;
+
+
+public class EasyUIViewModel
 {
-    public partial class EasyUIViewModel : ObservableObject
-    {
 
-        readonly ConsoleBehavior consoleBehavior = new();
-        TaskType type = BoxedMAATask.ItemConfig.Types[0];
-        Show? show;
-        string? stage;
-        int setReplaysTimes = 1;
+	/// <summary>
+	/// 指示有哪些任务选项
+	/// </summary>
+	public static string[] AllTaskTypes
+	{
+		get
+		{
+			var res = new List<string>();
+			foreach (var t in ConfigInterface.task)
+				res.Add(t.name);
+			return res.ToArray();
+		}
+	}
 
-        [ObservableProperty]
-        string newTaskName = "NewTask";
-        [ObservableProperty]
-        bool allIn = false;
-        [ObservableProperty]
-        bool eat24hCandy = false;
-        [ObservableProperty]
-        bool isDifficulty = false;
-        [ObservableProperty]
-        List<BoxedMAATask> allMAATasks = ConfigManager.GetAllMAATasks();
-        public static int Client
-        {
-            get
-            {
-                return (int)ConfigManager.Client - 1;
-            }
-            set
-            {
-                ConfigManager.Client = (Client)(value + 1);
-            }
-        }
-        public static string ADBPath
-        {
-            get
-            {
-                return ConfigManager.ADBPath;
-            }
-            set
-            {
-                ConfigManager.ADBPath = value;
-            }
-        }
-        public static int ADBPort
-        {
-            get
-            {
-                return ConfigManager.ADBPort;
-            }
-            set
-            {
-                ConfigManager.ADBPort = value;
-            }
-        }
-        public static List<string> AllTaskTypes
-        {
-            get
-            {
-                return BoxedMAATask.ItemConfig.AllTypeUIName;
-            }
-        }
-        public List<string>? AllShows
-        {
-            get
-            {
-                return type.AllShowUIName;
-            }
-        }
-        public List<string>? AllStages
-        {
-            get
-            {
-                return show?.Stages;
-            }
-        }
-        public bool IsCombat
-        {
-            get
-            {
-                return type.IsCombat;
-            }
-        }
-        public int TypeIndex
-        {
-            get
-            {
-                return BoxedMAATask.ItemConfig.Types.IndexOf(type);
-            }
-            set
-            {
-                type = BoxedMAATask.ItemConfig.Types[value];
-                OnPropertyChanged(nameof(IsCombat));
-                OnPropertyChanged(nameof(AllShows));
-                OnPropertyChanged(nameof(ShowIndex));
-            }
-        }
-        public int ShowIndex
-        {
-            get
-            {
-                return (type.Shows is null) ? 0 : type.Shows.IndexOf(show);
-            }
-            set
-            {
-                if (value >= 0)
-                {
-                    show = type.Shows?[value];
-                }
-                OnPropertyChanged(nameof(AllStages));
-                OnPropertyChanged(nameof(StageIndex));
-            }
-        }
-        public int StageIndex
-        {
-            get
-            {
-                return (show is null) ? 0 : show.Stages.IndexOf(stage);
-            }
-            set
-            {
-                stage = show!.Stages[value - 1];
-            }
-        }
-        public int SetReplaysTimes
-        {
-            get
-            {
-                return setReplaysTimes;
-            }
-            set
-            {
-                if (value < 1)
-                {
-                    value = 1;
-                }
-                else if (value > 4)
-                {
-                    value = 4;
-                }
-                setReplaysTimes = value;
-                OnPropertyChanged(nameof(SetReplaysTimes));
-            }
-        }
-        public RelayCommand StartMAACommand { get; set; }
-        public RelayCommand<ItemCollection> AddNewTaskCommand { get; set; }
+	/// <summary>
+	/// 指示task name对option name的映射，哪些task有哪些option
+	/// </summary>
+	public static Dictionary<string, string[]> TaskMap2Option
+	{
+		get
+		{
+			var res = new Dictionary<string, string[]>();
+			foreach (var item in ConfigInterface.task)
+			{
+				var li = new List<string>();
+				foreach (var t in item.option)
+				{
+					li.Add(t);
+				}
+				res.Add(item.name, li.ToArray());
+			}
+			return res;
+		}
+	}
 
-        public EasyUIViewModel()
-        {
-            StartMAACommand = new RelayCommand(StartMAA);
-            AddNewTaskCommand = new RelayCommand<ItemCollection>(AddNewTask);
-        }
-        async void StartMAA()
-        {
-            ConfigManager.SaveConfig();
-            await Task.Run(() => consoleBehavior.Start());
-        }
-        void AddNewTask(ItemCollection items)
-        {
-            BoxedMAATask temp = new()
-            {
-                name = NewTaskName,
-                type = type,
-                AllIn = AllIn,
-                EatCandyWithin24H = Eat24hCandy,
-                show = show,
-                stage = stage,
-                difficulty = IsDifficulty ? "StageDifficulty_Hard" : "StageDifficulty_None",
-                setReplaysTimes = setReplaysTimes,
-            };
-            AllMAATasks.Add(temp);
-            OnPropertyChanged(nameof(AllMAATasks));
-            items.Refresh();
-        }
-        public void DeleteTask(BoxedMAATask task, ItemCollection items)
-        {
-            AllMAATasks.Remove(task);
-            items.Refresh();
-        }
-        public void ItemMoveDown(BoxedMAATask task, ItemCollection items)
-        {
-            int index = AllMAATasks.IndexOf(task);
-            if (index == AllMAATasks.Count - 1)
-            {
-                return;
-            }
-            else
-            {
-                (AllMAATasks[index + 1], AllMAATasks[index]) = (AllMAATasks[index], AllMAATasks[index + 1]);
-            }
-            items.Refresh();
-        }
-        public void ItemMoveUp(BoxedMAATask task, ItemCollection items)
-        {
-            int index = AllMAATasks.IndexOf(task);
-            if (index == 0)
-            {
-                return;
-            }
-            else
-            {
-                (AllMAATasks[index - 1], AllMAATasks[index]) = (AllMAATasks[index], AllMAATasks[index - 1]);
-            }
-            items.Refresh();
-        }
-    }
+	/// <summary>
+	/// 指示所有选项及其所对应的可取值
+	/// </summary>
+	public static Dictionary<string, string[]> OptionMap2Values
+	{
+		get
+		{
+			var res = new Dictionary<string, string[]>();
+			foreach (var item in ConfigInterface.option)
+			{
+				res.Add(item.Key, item.Value.ToArray());
+			}
+			return res;
+		}
+	}
+
+	/// <summary>
+	/// 显示有哪些服务器选项
+	/// </summary>
+	public static string[] AllResources
+	{
+		get
+		{
+			return ConfigInterface.resource.ToArray();
+		}
+	}
+
+
+	public static string ADBPath
+	{
+		get { return ConfigManager.ADBPath; }
+		set { ConfigManager.ADBPath = value; }
+	}
+
+	public static int ADBPort
+	{
+		get { return ConfigManager.ADBPort; }
+		set { ConfigManager.ADBPort = value; }
+	}
+
+	/// <summary>
+	/// 服务器 “官服” “B服” 等
+	/// </summary>
+	public static string Client
+	{
+		get { return ConfigManager.Client; }
+		set { ConfigManager.Client = value; }
+	}
+
+	/// <summary>
+	/// 所有任务
+	/// </summary>
+	public static BoxedMAATask[] AllMAATasks
+	{
+		get
+		{
+			var res = new List<BoxedMAATask>();
+			foreach (var item in ConfigManager.AllMAATasks)
+			{
+				var boxedMAATask = BoxedMAATask.FromMAATask(item);
+				res.Add(boxedMAATask);
+			}
+			return res.ToArray();
+		}
+
+		set
+		{
+			var res = new List<ConfigObject.Task>();
+			foreach (var item in value)
+			{
+				res.Add(item.ToMAATask());
+			}
+			ConfigManager.AllMAATasks = res.ToArray();
+		}
+	}
+
+	/// <summary>
+	/// append task to the tail of ALLMAATasks
+	/// </summary>
+	/// <param name="task"></param>
+	public static void AppendTask(BoxedMAATask task)
+	{
+		var res = AllMAATasks.ToList();
+		res.Add(task);
+		AllMAATasks = res.ToArray();
+	}
+
+
+
+
+
+	/// <summary>
+	/// 用于启动MAA CLI跑任务
+	/// </summary>
+	private readonly ConsoleBehavior consoleBehavior = new();
+
+	// 一些命令操作
+	public RelayCommand StartMAACommand { get; set; }
+
+
+	public EasyUIViewModel()
+	{
+		StartMAACommand = new RelayCommand(StartMAA);
+	}
+
+	async void StartMAA()
+	{
+		ConfigManager.SaveConfig();
+		await Task.Run(() => consoleBehavior.Start());
+	}
 }
+
