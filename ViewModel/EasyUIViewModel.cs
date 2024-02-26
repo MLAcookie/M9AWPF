@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace M9AWPF.ViewModel;
-
-
 public class EasyUIViewModel
 {
 
@@ -76,8 +74,6 @@ public class EasyUIViewModel
 			return ConfigInterface.resource.ToArray();
 		}
 	}
-
-
 	public static string ADBPath
 	{
 		get { return ConfigManager.ADBPath; }
@@ -137,24 +133,16 @@ public class EasyUIViewModel
 		AllMAATasks = res.ToArray();
 	}
 
-
-
-
-
 	/// <summary>
 	/// 用于启动MAA CLI跑任务
 	/// </summary>
 	private readonly ConsoleBehavior consoleBehavior = new();
-
 	// 一些命令操作
 	public RelayCommand StartMAACommand { get; set; }
-
-
 	public EasyUIViewModel()
 	{
 		StartMAACommand = new RelayCommand(StartMAA);
 	}
-
 	async void StartMAA()
 	{
 		ConfigManager.SaveConfig();

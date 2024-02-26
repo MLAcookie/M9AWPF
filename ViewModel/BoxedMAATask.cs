@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace M9AWPF.ViewModel;
 
-
 /// <summary>
 /// 封装的MAA Task
 /// </summary>
@@ -32,7 +31,6 @@ public class BoxedMAATask
 	/// 任务选项对应的值
 	/// </summary>
 	public List<string> OptionVals { get; set; } = new();
-
 	public ConfigObject.Task ToMAATask()
 	{
 		var res = new ConfigObject.Task();
@@ -48,7 +46,6 @@ public class BoxedMAATask
 		}
 		return res;
 	}
-
 	public static BoxedMAATask FromMAATask(ConfigObject.Task task)
 	{
 		var res = new BoxedMAATask();

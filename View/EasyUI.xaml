@@ -1,23 +1,18 @@
 ﻿<UserControl
-    
     x:Class="M9AWPF.View.EasyUI"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:M9AWPF.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:vm="clr-namespace:M9AWPF.ViewModel"
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    d:DesignHeight="800"
-    d:DesignWidth="1000"
+    d:Background="White"
+    d:DesignHeight="600"
+    d:DesignWidth="800"
     mc:Ignorable="d">
-
     <UserControl.DataContext>
         <vm:EasyUIViewModel />
     </UserControl.DataContext>
-
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.4*" />
@@ -28,8 +23,7 @@
                 <RowDefinition Height="60" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-
-            <!-- 启动 -->
+            <!--  启动  -->
             <Grid
                 Width="Auto"
                 Height="Auto"
@@ -53,7 +47,6 @@
                     FontSize="16"
                     Text="← 按下这个就启动了" />
             </Grid>
-
             <StackPanel Grid.Row="1">
                 <Grid Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
@@ -74,7 +67,6 @@
                         SpinButtonPlacementMode="Hidden"
                         Value="{Binding ADBPort}" />
                 </Grid>
-
                 <Grid Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80" />
@@ -85,99 +77,90 @@
                         Grid.Column="1"
                         Width="100"
                         ItemsSource="{Binding AllResources}"
-                        SelectedValue="{Binding Client}"/>
+                        SelectedValue="{Binding Client}" />
                 </Grid>
-
                 <Separator Margin="5" />
-
                 <TextBlock
                     Margin="0,5,0,0"
                     FontSize="14"
                     Text=" + 新的任务" />
 
-                <Grid Margin="0,5,0,0">
+                <Grid Margin="0,5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="120" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
-                        ><Run Text="任务"/><Run Language="zh-cn" Text="名称"/></TextBlock>
+                        Text="任务类型" />
                     <ComboBox
+                        Name="ComboBox_TaskName"
                         Grid.Column="1"
+                        MinWidth="250"
                         ItemsSource="{Binding AllTaskTypes}"
-                        SelectionChanged="OnTaskNameSelectionChanged"
-                        Name="ComboBox_TaskName">
-                    </ComboBox>
+                        SelectedIndex="0"
+                        SelectionChanged="OnTaskNameSelectionChanged" />
                 </Grid>
-
-                <TextBlock
-                    FontSize="14">
-                    <Run Language="zh-cn" Text="     "/><Run Text="任务选项"/>
-                </TextBlock>
-                <StackPanel Name="StackPanel_TaskSettings"></StackPanel>
+                <StackPanel Name="StackPanel_TaskSettings" />
                 <Button
                     Margin="10,5,0,0"
-                    Content="Add"
-                    Click="Button_Add_Click"/>
+                    Click="Button_Add_Click"
+                    Content="Add" />
             </StackPanel>
         </Grid>
-
         <ui:ScrollViewerEx Grid.Column="1">
             <StackPanel Margin="20,0">
                 <TextBlock
                     Margin="0,10"
                     FontSize="16"
-                    Text="任务列表:" />
+                    Text="任务列表（右键可更改任务位置）:" />
                 <ItemsControl Name="TaskList_ItemControl" ItemsSource="{Binding AllMAATasks}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="vm:BoxedMAATask">
                             <StackPanel>
                                 <Grid>
-
-                                    <!-- 任务名称 -->
+                                    <!--  任务名称  -->
                                     <TextBlock
                                         Name="Header_TextBlock"
                                         Margin="10,7,0,7"
                                         Text="{Binding Name}"
-                                        Visibility="Visible">
-                                        
-                                        <!-- 菜单提供移动和删除操作 -->
-                                        <TextBlock.ContextMenu>
-                                            <ContextMenu>
-                                                <MenuItem Click="MoveUp_MenuItem_Click" Header="MoveUp">
-                                                    <MenuItem.Icon>
-                                                        <TextBlock FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf062;" />
-                                                    </MenuItem.Icon>
-                                                </MenuItem>
-                                                <MenuItem Click="MoveDown_MenuItem_Click" Header="MoveDown">
-                                                    <MenuItem.Icon>
-                                                        <TextBlock FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf063;" />
-                                                    </MenuItem.Icon>
-                                                </MenuItem>
-                                                <MenuItem Click="Delete_MenuItem_Click" Header="Delete">
-                                                    <MenuItem.Icon>
-                                                        <TextBlock FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf2ed;" />
-                                                    </MenuItem.Icon>
-                                                </MenuItem>
-                                            </ContextMenu>
-                                        </TextBlock.ContextMenu>
-                                    </TextBlock>
+                                        Visibility="Visible" />
                                 </Grid>
-
-                                <!-- 用来展示任务选项的部分 -->
+                                <!--  用来展示任务选项的部分  -->
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="150" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <ItemsControl ItemsSource="{Binding Options}" Grid.Column="0" Margin="15,0,0,0" />
-                                    <ItemsControl ItemsSource="{Binding OptionVals}" Grid.Column="1" />
+                                    <ItemsControl
+                                        Grid.Column="0"
+                                        Margin="20,0,0,0"
+                                        ItemsSource="{Binding Options}" />
+                                    <ItemsControl Grid.Column="1" ItemsSource="{Binding OptionVals}" />
                                 </Grid>
-                                <Separator Margin="0,5,0,5" />
-                                <!-- ===================== -->
-
+                                <Separator Margin="0,10" />
+                                <!--  =====================  -->
+                                <StackPanel.ContextMenu>
+                                    <!--  菜单提供移动和删除操作  -->
+                                    <ContextMenu>
+                                        <MenuItem Click="MoveUp_MenuItem_Click" Header="MoveUp">
+                                            <MenuItem.Icon>
+                                                <TextBlock FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf062;" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Click="MoveDown_MenuItem_Click" Header="MoveDown">
+                                            <MenuItem.Icon>
+                                                <TextBlock FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf063;" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Click="Delete_MenuItem_Click" Header="Delete">
+                                            <MenuItem.Icon>
+                                                <TextBlock FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf2ed;" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </StackPanel.ContextMenu>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -185,5 +168,4 @@
             </StackPanel>
         </ui:ScrollViewerEx>
     </Grid>
-
 </UserControl>

@@ -28,8 +28,6 @@ public static class ConfigManager
 	/// </summary>
 	private static readonly ConfigObject configObject = new();
 
-
-
 	/// <summary>
 	/// 按路径初始化
 	/// </summary>
