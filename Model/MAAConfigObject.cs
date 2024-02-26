@@ -10,7 +10,6 @@ using System.Windows.Documents;
 
 namespace M9AWPF.Model;
 
-
 /// <summary>
 /// 应用启动时读取interface文件，指示配置中可选的字段及其value
 /// </summary>
@@ -99,22 +98,6 @@ public static class ConfigInterface
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /// <summary>
 /// 该类指示MAA config json文件内容

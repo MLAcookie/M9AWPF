@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:M9AWPF.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.modernwpf.com/2019"
-    Title="M9A WPF By:MLA_cookie"
+    Title="M9A WPF - M9A Config UI"
     Width="800"
     Height="600"
     ui:WindowHelper.UseModernWindowStyle="True"
