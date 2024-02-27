@@ -47,6 +47,7 @@
                     FontSize="16"
                     Text="← 按下这个就启动了" />
             </Grid>
+            <!--  ADB设置部分  -->
             <StackPanel Grid.Row="1">
                 <Grid Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
@@ -80,11 +81,11 @@
                         SelectedValue="{Binding Client}" />
                 </Grid>
                 <Separator Margin="5" />
+                <!--  新任务设置  -->
                 <TextBlock
                     Margin="0,5,0,0"
                     FontSize="14"
                     Text=" + 新的任务" />
-
                 <Grid Margin="0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="120" />
@@ -109,6 +110,7 @@
                     Content="Add" />
             </StackPanel>
         </Grid>
+        <!--  任务列表  -->
         <ui:ScrollViewerEx Grid.Column="1">
             <StackPanel Margin="20,0">
                 <TextBlock

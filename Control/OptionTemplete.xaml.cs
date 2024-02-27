@@ -16,12 +16,20 @@ using System.Windows.Shapes;
 namespace M9AWPF.Control
 {
     /// <summary>
-    /// OptionTemplete.xaml 的交互逻辑
+    /// 提供一个带标签的Combobox的模板
     /// </summary>
     public partial class OptionTemplete : UserControl
     {
+        /// <summary>
+        /// 选项的名字
+        /// </summary>
         public string OptionName { get; set; }
+
+        /// <summary>
+        /// 所有可能的选项
+        /// </summary>
         public string[] OptionValues { get; set; }
+
         public OptionTemplete(string optionName, string[] optionValues)
         {
             InitializeComponent();

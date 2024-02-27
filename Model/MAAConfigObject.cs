@@ -23,7 +23,7 @@ public static class ConfigInterface
 	public static readonly Dictionary<string, List<string>> option = new();
 
 	/// <summary>
-	/// 任务，每个任务由名称和一系列选项组成
+	/// M9A任务，每个任务由名称和一系列选项组成
 	/// </summary>
 	public class Task
 	{
