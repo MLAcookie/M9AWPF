@@ -1,4 +1,4 @@
-**注意：M9A v1.x的适配工作还在进行中，当前暂未适配新版本M9A**
+**注意：M9A v1.x的适配工作还在进行中**
 
 # M9AWPF
 拿WPF框架写的一个[M9A](https://github.com/MaaAssistantArknights/M9A)的UI  
