@@ -18,7 +18,7 @@ namespace M9AWPF.Control
     /// <summary>
     /// 提供一个带标签的Combobox的模板
     /// </summary>
-    public partial class OptionTemplete : UserControl
+    public partial class OptionTemplate : UserControl
     {
         /// <summary>
         /// 选项的名字
@@ -30,7 +30,7 @@ namespace M9AWPF.Control
         /// </summary>
         public string[] OptionValues { get; set; }
 
-        public OptionTemplete(string optionName, string[] optionValues)
+        public OptionTemplate(string optionName, string[] optionValues)
         {
             InitializeComponent();
             OptionName = optionName;
