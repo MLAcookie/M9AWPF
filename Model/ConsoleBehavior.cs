@@ -4,12 +4,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using M9AWPF.Constants;
 
 namespace M9AWPF.Model;
 
 public class ConsoleBehavior
 {
-	const string M9A_PATH = @"./M9A-Bin/MaaPiCli.exe";
+	static readonly string M9A_PATH = ConfKeys.M9ABin;
 	private readonly Process m9a = new()
 	{
 		StartInfo = new ProcessStartInfo

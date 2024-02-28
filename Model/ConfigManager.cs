@@ -9,6 +9,7 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using M9AWPF.Constants;
 
 namespace M9AWPF.Model;
 
@@ -21,7 +22,7 @@ public static class ConfigManager
 	/// <summary>
 	/// config 路径
 	/// </summary>
-	private const string path = @"./M9A-Bin/config/maa_pi_config.json";
+	private static readonly string path = ConfKeys.M9AConfig;
 
 	/// <summary>
 	/// config对象（用于序列化和反序列化）

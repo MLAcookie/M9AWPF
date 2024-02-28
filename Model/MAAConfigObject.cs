@@ -8,6 +8,8 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 
+using M9AWPF.Constants;
+
 namespace M9AWPF.Model;
 
 /// <summary>
@@ -15,9 +17,9 @@ namespace M9AWPF.Model;
 /// </summary>
 public static class ConfigInterface
 {
-	private const string path = @"./M9A-Bin/interface.json";
+    private static readonly string path = ConfKeys.M9AInterface;
 
-	/// <summary>
+    /// <summary>
 	/// option及其所对应的能取的值
 	/// </summary>
 	public static readonly Dictionary<string, List<string>> option = new();

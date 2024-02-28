@@ -127,7 +127,7 @@ namespace M9AWPF.View
             {
                 var panel = new StackPanel();
                 panel.Orientation = Orientation.Horizontal;
-                var opt = new OptionTemplete(option, EasyUIViewModel.OptionMap2Values[option]);
+                var opt = new OptionTemplate(option, EasyUIViewModel.OptionMap2Values[option]);
                 stackPanel.Children.Add(opt);
 
                 //var label = new TextBlock();
@@ -159,7 +159,7 @@ namespace M9AWPF.View
 
             // 获取任务选项
             var stackPanel = (FindName("StackPanel_TaskSettings") as StackPanel)!;
-            foreach (OptionTemplete opt in stackPanel.Children)
+            foreach (OptionTemplate opt in stackPanel.Children)
             {
 
                 if (opt.LocalComboBox.SelectedValue == null) return;
