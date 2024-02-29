@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using M9AWPF.Constants;
+using MaaPiAvaGui.Constants;
 
-namespace M9AWPF.Model;
+namespace MaaPiAvaGui.Models;
 
 public class ConsoleBehavior
 {

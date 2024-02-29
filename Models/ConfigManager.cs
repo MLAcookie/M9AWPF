@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Shapes;
-using System.Diagnostics;
 using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Text.Unicode;
-using M9AWPF.Constants;
+using MaaPiAvaGui.Constants;
 
-namespace M9AWPF.Model;
+namespace MaaPiAvaGui.Models;
 
 
 /// <summary>

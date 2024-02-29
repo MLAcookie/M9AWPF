@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using M9AWPF.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,7 +7,9 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace M9AWPF.ViewModel;
+using MaaPiAvaGui.Models;
+
+namespace MaaPiAvaGui.ViewModels;
 
 /// <summary>
 /// 封装的MAA Task
@@ -58,5 +57,3 @@ public class BoxedMAATask
         return res;
     }
 }
-
-

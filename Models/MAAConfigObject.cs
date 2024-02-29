@@ -6,11 +6,10 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
-using System.Windows.Documents;
 
-using M9AWPF.Constants;
+using MaaPiAvaGui.Constants;
 
-namespace M9AWPF.Model;
+namespace MaaPiAvaGui.Models;
 
 /// <summary>
 /// 应用启动时读取interface文件，指示配置中可选的字段及其value

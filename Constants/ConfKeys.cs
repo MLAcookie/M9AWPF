@@ -1,11 +1,11 @@
 using System.IO;
 
-namespace M9AWPF.Constants;
+namespace MaaPiAvaGui.Constants;
 
-public static class ConfKeys
+public class ConfKeys
 {
     // M9A文件夹
-    private const string M9ARoot = "./M9A-Bin";
+    public const string M9ARoot = "./Assets/M9A-BIN";
 
     // interface.json路径
     public static readonly string M9AInterface = Path.Combine(M9ARoot, "./interface.json");
