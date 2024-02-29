@@ -31,13 +31,13 @@ public class BoxedMAATask
     /// 任务选项对应的值
     /// </summary>
     public List<string> OptionVals { get; set; } = new();
-    public ConfigObject.Task ToMAATask()
+    public M9AConfigObject.Task ToMAATask()
     {
-        var res = new ConfigObject.Task();
+        var res = new M9AConfigObject.Task();
         res.name = Name;
         for (int i = 0; i < Options.Count; i++)
         {
-            var option = new ConfigObject.Option()
+            var option = new M9AConfigObject.Option()
             {
                 name = Options[i],
                 value = OptionVals[i],
@@ -46,7 +46,7 @@ public class BoxedMAATask
         }
         return res;
     }
-    public static BoxedMAATask FromMAATask(ConfigObject.Task task)
+    public static BoxedMAATask FromMAATask(M9AConfigObject.Task task)
     {
         var res = new BoxedMAATask();
         res.Name = task.name;

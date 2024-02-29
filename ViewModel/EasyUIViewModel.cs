@@ -113,7 +113,7 @@ public class EasyUIViewModel
 
 		set
 		{
-			var res = new List<ConfigObject.Task>();
+			var res = new List<M9AConfigObject.Task>();
 			foreach (var item in value)
 			{
 				res.Add(item.ToMAATask());

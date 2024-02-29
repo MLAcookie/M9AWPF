@@ -5,14 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Windows.Shapes;
-using System.Diagnostics;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using M9AWPF.Constants;
 
 namespace M9AWPF.Model;
-
 
 /// <summary>
 /// 管理全局config的静态类，提供读取和写入maa的config的功能
@@ -27,7 +24,7 @@ public static class ConfigManager
 	/// <summary>
 	/// config对象（用于序列化和反序列化）
 	/// </summary>
-	private static readonly ConfigObject configObject = new();
+	private static readonly M9AConfigObject configObject = new();
 
 	/// <summary>
 	/// 按路径初始化
@@ -46,7 +43,7 @@ public static class ConfigManager
 		{
 			StreamReader sr = File.OpenText(path);
 			string jsonString = sr.ReadToEnd();
-			configObject = JsonSerializer.Deserialize<ConfigObject>(jsonString)!;
+			configObject = JsonSerializer.Deserialize<M9AConfigObject>(jsonString)!;
 			sr.Close();
 		}
 		else
@@ -60,7 +57,6 @@ public static class ConfigManager
 			{
 				Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
 			});
-			//jsonString = jsonString.Replace("null", "{}"); // 因为已经全部初始化，则不会出现null的情况
 			File.WriteAllText(path, jsonString, new UTF8Encoding(false));
 		}
 	}
@@ -74,7 +70,6 @@ public static class ConfigManager
 		{
 			Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
 		});
-		//jsonString = jsonString.Replace("null", "{}");
 		File.WriteAllText(path, jsonString, new UTF8Encoding(false));
 	}
 
@@ -133,7 +128,7 @@ public static class ConfigManager
 	/// <summary>
 	/// 获取所有的任务
 	/// </summary>
-	public static ConfigObject.Task[] AllMAATasks
+	public static M9AConfigObject.Task[] AllMAATasks
 	{
 		get { return configObject.task.ToArray(); }
 		set { configObject.task = value.ToList(); }
