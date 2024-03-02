@@ -10,24 +10,18 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <None Remove="Font/fa.ttf" />
-    </ItemGroup>
-    
-    <ItemGroup>
+    <!-- 项目引用 -->
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
         <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
         <PackageReference Include="ModernWpfUI" Version="0.9.6" />
-    </ItemGroup>
     
     <!-- 复制文件/文件夹 -->
-    <ItemGroup>
         <!-- M9A-bin -->
-        <None Include="$(SolutionDir)M9A-Bin/**">
+    <None Include="$(ProjectDir)/M9A-Bin/**">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         
-        <Resource Include="$(SolutionDir)Font/fa.ttf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
+    <!-- 资源 -->
+    <Resource Include="$(ProjectDir)/Font/fa.ttf" />
     </ItemGroup>
 </Project>
