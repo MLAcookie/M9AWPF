@@ -1,27 +1,108 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net6.0-windows</TargetFramework>
-        <Nullable>enable</Nullable>
-        <UseWPF>true</UseWPF>
-        <!-- 避免ModernWpfUI生成大量语言Resources -->
-        <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
-    </PropertyGroup>
-    
-    <ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <!-- 避免ModernWpfUI生成大量语言Resources -->
+    <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <ItemGroup>
     <!-- 项目引用 -->
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
-        <PackageReference Include="ModernWpfUI" Version="0.9.6" />
-    
-    <!-- 复制文件/文件夹 -->
-        <!-- M9A-bin -->
-    <None Include="$(ProjectDir)/M9A-Bin/**">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="ModernWpfUI" Version="0.9.6" />
+
     <!-- 资源 -->
     <Resource Include="$(ProjectDir)/Font/fa.ttf" />
-    </ItemGroup>
+  </ItemGroup>
+
+
+
+  <!-- 从一个链接下载文件，并将其置于目标目录中 -->
+  <UsingTask TaskName="Download" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <!-- 下载链接 -->
+      <url Required="true" ParameterType="System.String" />
+      <!-- 保存目录 -->
+      <saveDir Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.IO.Compression" />
+      <Using Namespace="System.Net" />
+      <Using Namespace="System.Net.Http" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+        
+        // 存在目标目录直接返回
+        if(Directory.Exists(saveDir))
+        {
+            Log.LogMessage("已存在目标目录，跳过");
+            return true;
+        }
+        
+        // 没有目标目录则创建
+        Log.LogMessage("创建目标目录");
+        Directory.CreateDirectory(saveDir);
+        
+        // 本地文件路径用于写入待下载文件
+        string fileName = "M9A-Bin.zip";
+        string filePath=Path.Combine(new string[] {saveDir, fileName});
+        
+        // 下载
+        Log.LogMessage("开始下载...");
+        try
+        {
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+            Stream responseStream = response.GetResponseStream(); // Http流
+            Stream stream = new FileStream(filePath, FileMode.Create); // 文件流
+
+            ulong allSize = 0; // 总共下载了多少bytes
+            byte[] bArr = new byte[1024]; // 缓存区
+            int size = responseStream.Read(bArr, 0, (int)bArr.Length); // 读取多少字节
+            while (size > 0)
+            {
+                stream.Write(bArr, 0, size);
+                allSize += (ulong)size;
+                Log.LogMessage($"已下载 {allSize} bytes");
+                size = responseStream.Read(bArr, 0, (int)bArr.Length);
+            }
+            
+            stream.Close();
+            responseStream.Close();
+            Log.LogMessage("End Download");
+        }
+        catch
+        {
+            Log.LogError($"下载失败，请从 {url} 手动下载！");
+            return false;
+        }
+        
+        // 解压缩
+        Log.LogMessage("开始解压缩...");
+        ZipFile.ExtractToDirectory(filePath, saveDir);
+        
+        // 删除下载文件
+        Log.LogMessage("清除缓存...");
+        File.Delete(filePath);
+        
+        return true;
+        
+      ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <Target Name="M9A" AfterTargets="Build">
+    <!-- M9A 1.0.0-btea3 -->
+    <Download
+      url="https://github.com/MaaXYZ/M9A/releases/download/v1.0.0-beta.3/M9A-win-x86_64-v1.0.0-beta.3.zip"
+      saveDir="$(OutDir)/M9A-Bin/" />
+    <Message Text="Finished Download" />
+  </Target>
 </Project>
