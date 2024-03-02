@@ -98,7 +98,7 @@
     </Task>
   </UsingTask>
 
-  <Target Name="M9A" AfterTargets="Build">
+  <Target Name="M9A" AfterTargets="Build" Condition="'$(Configuration)'=='Debug'">
     <!-- M9A 1.0.0-btea3 -->
     <Download
       url="https://github.com/MaaXYZ/M9A/releases/download/v1.0.0-beta.3/M9A-win-x86_64-v1.0.0-beta.3.zip"
