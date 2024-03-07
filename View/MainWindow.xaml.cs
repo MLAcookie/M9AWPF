@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using M9AWPF.JsonSerializeObject;
+using M9AWPF.Model;
 
 namespace M9AWPF.View
 {
@@ -23,10 +25,8 @@ namespace M9AWPF.View
         public MainWindow()
         {
             InitializeComponent();
-        }
-        private void NavigationView_ItemInvoked(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewItemInvokedEventArgs args)
-        {
-
+            //往关闭事件添加
+            this.Closing += M9AVersionHelper.CloseUpdate;
         }
     }
 }

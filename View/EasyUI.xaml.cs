@@ -1,6 +1,4 @@
-﻿using M9AWPF.Control;
-using M9AWPF.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -16,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using M9AWPF.Control;
+using M9AWPF.Model;
+using M9AWPF.ViewModel;
 
 namespace M9AWPF.View
 {
@@ -67,7 +68,8 @@ namespace M9AWPF.View
             {
                 if (tasks[i].Name == boxedMAATask.Name)
                 {
-                    if (i == tasks.Count - 1) return;
+                    if (i == tasks.Count - 1)
+                        return;
                     (tasks[i], tasks[i + 1]) = (tasks[i + 1], tasks[i]);
                     break;
                 }
@@ -92,7 +94,8 @@ namespace M9AWPF.View
             {
                 if (tasks[i].Name == boxedMAATask.Name)
                 {
-                    if (i == 0) return;
+                    if (i == 0)
+                        return;
                     (tasks[i], tasks[i - 1]) = (tasks[i - 1], tasks[i]);
                     break;
                 }
@@ -120,7 +123,8 @@ namespace M9AWPF.View
 
             // 获取该任务类型所对应的所有option的name
             var options = EasyUIViewModel.TaskMap2Option[str]!;
-            if (options.Length == 0) return;
+            if (options.Length == 0)
+                return;
 
             // 一旦存在不为零的option，则准备向任务选项的panel里添加相应选择控件
             foreach (var option in options)
@@ -128,17 +132,7 @@ namespace M9AWPF.View
                 var panel = new StackPanel();
                 panel.Orientation = Orientation.Horizontal;
                 var opt = new OptionTemplate(option, EasyUIViewModel.OptionMap2Values[option]);
-                stackPanel.Children.Add(opt);
-
-                //var label = new TextBlock();
-                //label.Text = option;
-                //panel.Children.Add(label);
-
-                //var combobox = new ComboBox();
-                //combobox.ItemsSource = EasyUIViewModel.OptionMap2Values[option];
-                //panel.Children.Add(combobox);
-
-                //stackPanel.Children.Add(panel);
+                stackPanel!.Children.Add(opt);
             }
         }
 
@@ -154,15 +148,16 @@ namespace M9AWPF.View
 
             // 获取任务名称
             var combobox = (FindName("ComboBox_TaskName") as ComboBox)!;
-            if (combobox.SelectedValue == null) return;
+            if (combobox.SelectedValue == null)
+                return;
             task.Name = combobox.SelectedValue.ToString()!;
 
             // 获取任务选项
             var stackPanel = (FindName("StackPanel_TaskSettings") as StackPanel)!;
             foreach (OptionTemplate opt in stackPanel.Children)
             {
-
-                if (opt.LocalComboBox.SelectedValue == null) return;
+                if (opt.LocalComboBox.SelectedValue == null)
+                    return;
                 string optionName = opt.OptionName;
                 string optionVal = opt.LocalComboBox.SelectedValue.ToString()!;
 

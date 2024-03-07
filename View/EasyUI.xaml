@@ -22,6 +22,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
                 <RowDefinition />
+                <RowDefinition Height="40" />
             </Grid.RowDefinitions>
             <!--  启动  -->
             <Grid
@@ -37,7 +38,7 @@
                     <TextBlock Text="按下启动，会保存设置的config" />
                 </Grid.ToolTip>
                 <Button
-                    Command="{Binding StartMAACommand}"
+                    Command="{Binding StartM9ACommand}"
                     Content="Start"
                     FontSize="24" />
                 <TextBlock
@@ -108,6 +109,43 @@
                     Margin="10,5,0,0"
                     Click="Button_Add_Click"
                     Content="Add" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="{Binding M9AVersion}" />
+                <StackPanel
+                    Margin="5,0"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Visibility="{Binding IsM9ANotLatest}">
+                    <StackPanel.ToolTip>
+                        <TextBlock Text="{Binding M9ALatestVerion, StringFormat='{}latest: {0}'}" Visibility="{Binding IsM9ANotLatest}" />
+                    </StackPanel.ToolTip>
+                    <TextBlock
+                        Margin="5,0"
+                        VerticalAlignment="Center"
+                        FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid"
+                        FontSize="16"
+                        Text="&#xf35b;" />
+                    <Button
+                        Margin="5,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding UpdateM9ACommand}"
+                        Content="Update" />
+                    <ui:ProgressRing
+                        Margin="5,0"
+                        d:IsActive="True"
+                        IsActive="{Binding IsDownloading}">
+                        <ui:ProgressRing.ToolTip>
+                            <TextBlock Text="Downloading..." />
+                        </ui:ProgressRing.ToolTip>
+                    </ui:ProgressRing>
+                </StackPanel>
             </StackPanel>
         </Grid>
         <!--  任务列表  -->
