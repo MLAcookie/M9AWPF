@@ -53,9 +53,12 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80" />
                         <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center" Text="ADB路径:" />
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="ADB路径:" />
                     <TextBox Grid.Column="1" Text="{Binding ADBPath}" />
+                    <Button Grid.Column="2" Content="选择文件" Command="{Binding SelectAdbFileCommand}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Grid>
                 <Grid Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
@@ -148,17 +151,23 @@
                                     <ContextMenu>
                                         <MenuItem Click="MoveUp_MenuItem_Click" Header="MoveUp">
                                             <MenuItem.Icon>
-                                                <TextBlock FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf062;" />
+                                                <TextBlock
+                                                    FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid"
+                                                    Text="&#xf062;" />
                                             </MenuItem.Icon>
                                         </MenuItem>
                                         <MenuItem Click="MoveDown_MenuItem_Click" Header="MoveDown">
                                             <MenuItem.Icon>
-                                                <TextBlock FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf063;" />
+                                                <TextBlock
+                                                    FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid"
+                                                    Text="&#xf063;" />
                                             </MenuItem.Icon>
                                         </MenuItem>
                                         <MenuItem Click="Delete_MenuItem_Click" Header="Delete">
                                             <MenuItem.Icon>
-                                                <TextBlock FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid" Text="&#xf2ed;" />
+                                                <TextBlock
+                                                    FontFamily="/M9AWPF;component/Font/#Font Awesome 6 Free Solid"
+                                                    Text="&#xf2ed;" />
                                             </MenuItem.Icon>
                                         </MenuItem>
                                     </ContextMenu>
