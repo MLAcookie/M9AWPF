@@ -10,12 +10,12 @@ namespace M9AWPF.Model;
 
 public class ConsoleBehavior
 {
-	static readonly string M9A_PATH = ConfKeys.M9ABin;
-	private readonly Process m9a = new()
-	{
+	static readonly string M9APath = ConfKeys.M9ABin;
+	private readonly Process _m9A = new Process
+    {
 		StartInfo = new ProcessStartInfo
 		{
-			FileName = M9A_PATH,
+			FileName = M9APath,
 			RedirectStandardInput = true,
 			RedirectStandardOutput = false,
 			CreateNoWindow = false,
@@ -26,8 +26,8 @@ public class ConsoleBehavior
 
 	public void Start()
 	{
-		m9a.Start();
-		m9a.WaitForExit();
-		m9a.Close();
+		_m9A.Start();
+		_m9A.WaitForExit();
+		_m9A.Close();
 	}
 }

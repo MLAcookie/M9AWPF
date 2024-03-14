@@ -1,16 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using M9AWPF.Model;
 
 namespace M9AWPF.ViewModel;
@@ -25,8 +19,8 @@ public class EasyUIViewModel : INotifyPropertyChanged
         get
         {
             var res = new List<string>();
-            foreach (var t in ConfigInterface.task)
-                res.Add(t.name);
+            foreach (var t in ConfigInterface.Tasks)
+                res.Add(t.Name);
             return res.ToArray();
         }
     }
@@ -39,15 +33,15 @@ public class EasyUIViewModel : INotifyPropertyChanged
         get
         {
             var res = new Dictionary<string, string[]>();
-            foreach (var item in ConfigInterface.task)
+            foreach (var item in ConfigInterface.Tasks)
             {
                 var li = new List<string>();
-                foreach (var t in item.option)
+                foreach (var t in item.Option)
                 {
                     li.Add(t);
                 }
 
-                res.Add(item.name, li.ToArray());
+                res.Add(item.Name, li.ToArray());
             }
 
             return res;
@@ -76,20 +70,20 @@ public class EasyUIViewModel : INotifyPropertyChanged
     /// </summary>
     public static string[] AllResources
     {
-        get { return ConfigInterface.resource.ToArray(); }
+        get { return ConfigInterface.Resource.ToArray(); }
     }
 
-    public string ADBPath
+    public string AdbPath
     {
-        get { return ConfigManager.ADBPath; }
+        get { return ConfigManager.AdbPath; }
         set
         {
-            if (ConfigManager.ADBPath == value)
+            if (ConfigManager.AdbPath == value)
             {
                 return;
             }
 
-            ConfigManager.ADBPath = value;
+            ConfigManager.AdbPath = value;
             OnPropertyChanged();
         }
     }
@@ -110,14 +104,14 @@ public class EasyUIViewModel : INotifyPropertyChanged
         if (openFileDialog.ShowDialog() == true)
         {
             // TODO(KaronGH): 应该添加一个逻辑或限制，禁止用户选择非"adb.exe"的文件
-            ADBPath = openFileDialog.FileName;
+            AdbPath = openFileDialog.FileName;
         }
     }
 
-    public static int ADBPort
+    public static int AdbPort
     {
-        get { return ConfigManager.ADBPort; }
-        set { ConfigManager.ADBPort = value; }
+        get { return ConfigManager.AdbPort; }
+        set { ConfigManager.AdbPort = value; }
     }
 
     /// <summary>
@@ -132,15 +126,15 @@ public class EasyUIViewModel : INotifyPropertyChanged
     /// <summary>
     /// 所有任务
     /// </summary>
-    public static BoxedMAATask[] AllMAATasks
+    public static BoxedMaaTask[] AllMaaTasks
     {
         get
         {
-            var res = new List<BoxedMAATask>();
-            foreach (var item in ConfigManager.AllMAATasks)
+            var res = new List<BoxedMaaTask>();
+            foreach (var item in ConfigManager.AllMaaTasks)
             {
-                var boxedMAATask = BoxedMAATask.FromMAATask(item);
-                res.Add(boxedMAATask);
+                var boxedMaaTask = BoxedMaaTask.FromMaaTask(item);
+                res.Add(boxedMaaTask);
             }
 
             return res.ToArray();
@@ -151,41 +145,41 @@ public class EasyUIViewModel : INotifyPropertyChanged
             var res = new List<M9AConfigObject.Task>();
             foreach (var item in value)
             {
-                res.Add(item.ToMAATask());
+                res.Add(item.ToMaaTask());
             }
 
-            ConfigManager.AllMAATasks = res.ToArray();
+            ConfigManager.AllMaaTasks = res.ToArray();
         }
     }
 
     /// <summary>
-    /// append task to the tail of ALLMAATasks
+    /// append Tasks to the tail of AllMaaTasks
     /// </summary>
     /// <param name="task"></param>
-    public static void AppendTask(BoxedMAATask task)
+    public static void AppendTask(BoxedMaaTask task)
     {
-        var res = AllMAATasks.ToList();
+        var res = AllMaaTasks.ToList();
         res.Add(task);
-        AllMAATasks = res.ToArray();
+        AllMaaTasks = res.ToArray();
     }
 
     /// <summary>
     /// 用于启动MAA CLI跑任务
     /// </summary>
-    private readonly ConsoleBehavior consoleBehavior = new();
+    private readonly ConsoleBehavior _consoleBehavior = new ConsoleBehavior();
 
     // 一些命令操作
-    public RelayCommand StartMAACommand { get; set; }
+    public RelayCommand StartMaaCommand { get; set; }
 
     public EasyUIViewModel()
     {
-        StartMAACommand = new RelayCommand(StartMAA);
+        StartMaaCommand = new RelayCommand(StartMaa);
         SelectAdbFileCommand = new RelayCommand(SelectAdbFile);
     }
 
-    async void StartMAA()
+    async void StartMaa()
     {
         ConfigManager.SaveConfig();
-        await Task.Run(() => consoleBehavior.Start());
+        await Task.Run(() => _consoleBehavior.Start());
     }
 }

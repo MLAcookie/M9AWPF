@@ -14,7 +14,7 @@ namespace M9AWPF.Model;
 /// </summary>
 public static class ConfigInterface
 {
-    private static readonly string path = ConfKeys.M9AInterface;
+    private static readonly string Path = ConfKeys.M9AInterface;
 
     /// <summary>
 	/// option及其所对应的能取的值
@@ -30,34 +30,34 @@ public static class ConfigInterface
         /// <summary>
         /// 任务名
         /// </summary>
-        public string name = string.Empty;
+        public string Name = string.Empty;
 
         /// <summary>
         /// 任务选项
         /// </summary>
-        public List<string> option = new();
+        public List<string> Option = new List<string>();
     }
 
     /// <summary>
     /// 指示任务，具体内容见Task
     /// </summary>
-    public static readonly List<Task> task = new();
+    public static readonly List<Task> Tasks = new List<Task>();
 
     /// <summary>
     /// 指示玩的是哪个服的游戏
     /// </summary>
-    public static readonly List<string> resource = new();
+    public static readonly List<string> Resource = new List<string>();
 
     static ConfigInterface()
     {
-        string jsonstring = File.ReadAllText(path);
+        string jsonstring = File.ReadAllText(Path);
         var json = JsonNode.Parse(jsonstring)!;
 
         // 获取所有options
         var option_obj = json["option"]!.AsObject();
         foreach (var item in option_obj)
         {
-            List<string> vals = new();
+            List<string> vals = new List<string>();
             var arr = item.Value!["cases"]!.AsArray();
             foreach (var val in arr)
             {
@@ -68,12 +68,12 @@ public static class ConfigInterface
         }
 
         // 获取所有task
-        var tasks = json["task"]!.AsArray();
+        var tasks = json["Tasks"]!.AsArray();
         foreach (var item in tasks)
         {
             var task_new = new Task()
             {
-                name = item!["name"]!.ToString(),
+                Name = item!["name"]!.ToString(),
             };
 
             var option = item!["option"];
@@ -83,18 +83,18 @@ public static class ConfigInterface
                 foreach (var tmp_it in tmp)
                 {
                     if (tmp_it == null) continue;
-                    task_new.option.Add(tmp_it!.ToString());
+                    task_new.Option.Add(tmp_it!.ToString());
                 }
             }
 
-            task.Add(task_new);
+            Tasks.Add(task_new);
         }
 
         // 获取所有服务器
         var resources = json["resource"]!.AsArray()!;
         foreach (var item in resources)
         {
-            resource.Add(item!["name"]!.ToString());
+            Resource.Add(item!["name"]!.ToString());
         }
 
         M9AVersion = json["version"]!.ToString();

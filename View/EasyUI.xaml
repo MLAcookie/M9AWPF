@@ -37,7 +37,7 @@
                     <TextBlock Text="按下启动，会保存设置的config" />
                 </Grid.ToolTip>
                 <Button
-                    Command="{Binding StartMAACommand}"
+                    Command="{Binding StartMaaCommand}"
                     Content="Start"
                     FontSize="24" />
                 <TextBlock
@@ -56,7 +56,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="ADB路径:" />
-                    <TextBox Grid.Column="1" Text="{Binding ADBPath}" />
+                    <TextBox Grid.Column="1" Text="{Binding AdbPath}" />
                     <Button Grid.Column="2" Content="选择文件" Command="{Binding SelectAdbFileCommand}"
                             HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Grid>
@@ -69,7 +69,7 @@
                     <ui:NumberBox
                         Grid.Column="1"
                         SpinButtonPlacementMode="Hidden"
-                        Value="{Binding ADBPort}" />
+                        Value="{Binding AdbPort}" />
                 </Grid>
                 <Grid Margin="0,5,0,0">
                     <Grid.ColumnDefinitions>
@@ -120,9 +120,9 @@
                     Margin="0,10"
                     FontSize="16"
                     Text="任务列表（右键可更改任务位置）:" />
-                <ItemsControl Name="TaskList_ItemControl" ItemsSource="{Binding AllMAATasks}">
+                <ItemsControl Name="TaskList_ItemControl" ItemsSource="{Binding AllMaaTasks}">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="vm:BoxedMAATask">
+                        <DataTemplate DataType="vm:BoxedMaaTask">
                             <StackPanel>
                                 <Grid>
                                     <!--  任务名称  -->
