@@ -1,0 +1,158 @@
+{
+    "Psychube": {
+        "next": [
+            "PsychubeEnterTheShow",
+            "PsychubeResourceStages",
+            "FreePsychubeStages",
+            "PsychubeStages_7",
+            "Sub_StartUp"
+        ]
+    },
+    "PsychubeEnterTheShow": {
+        "recognition": "TemplateMatch",
+        "template": "Psychube/EnterTheShow.png",
+        "roi": [
+            926,
+            221,
+            229,
+            153
+        ],
+        "action": "Click",
+        "next": [
+            "PsychubeResourceStages"
+        ]
+    },
+    "PsychubeResourceStages": {
+        "recognition": "TemplateMatch",
+        "template": "Psychube/ResourceStages.png",
+        "roi": [
+            4,
+            559,
+            1276,
+            161
+        ],
+        "action": "Click",
+        "next": [
+            "FreePsychubeStages",
+            "NoFreePsychubeStagesFlag"
+        ]
+    },
+    "FreePsychubeStages": {
+        "recognition": "TemplateMatch",
+        "template": "Psychube/FreePsychubeStages.png",
+        "roi": [
+            180,
+            203,
+            246,
+            306
+        ],
+        "action": "Click",
+        "next": [
+            "PsychubeStages_7",
+            "PsychubeReadyForAction"
+        ]
+    },
+    "NoFreePsychubeStagesFlag": {
+        "recognition": "TemplateMatch",
+        "template": "Psychube/NoFreePsychubeStagesFlag.png",
+        "roi": [
+            732,
+            210,
+            233,
+            297
+        ],
+        "next": [
+            "HomeFlag",
+            "Sub_StartUp"
+        ]
+    },
+    "PsychubeStages_7": {
+        "recognition": "TemplateMatch",
+        "template": "Psychube/PsychubeStages_7.png",
+        "roi": [
+            306,
+            492,
+            271,
+            179
+        ],
+        "action": "Click",
+        "post_wait_freezes": 1,
+        "next": [
+            "PsychubeReadyForAction",
+            "PsychubeStages_7"
+        ]
+    },
+    "PsychubeReadyForAction": {
+        "recognition": "OCR",
+        "text": [
+            "开始行动"
+        ],
+        "roi": [
+            1040,
+            537,
+            235,
+            136
+        ],
+        "action": "Click",
+        "next": [
+            "PsychubeSwitchToReplay",
+            "PsychubeSetReplaysTimes",
+            "StartReplay"
+        ]
+    },
+    "PsychubeSwitchToReplay": {
+        "recognition": "TemplateMatch",
+        "template": "Psychube/SwitchToReplay.png",
+        "roi": [
+            [
+                781,
+                581,
+                145,
+                139
+            ],
+            [
+                548,
+                569,
+                166,
+                151
+            ]
+        ],
+        "action": "Click",
+        "next": [
+            "PsychubeSetReplaysTimes",
+            "StartReplay"
+        ]
+    },
+    "PsychubeSetReplaysTimes": {
+        "recognition": "TemplateMatch",
+        "template": "Psychube/SetReplaysTimes.png",
+        "threshold": 0.8,
+        "roi": [
+            737,
+            586,
+            174,
+            134
+        ],
+        "action": "Click",
+        "post_wait_freezes": 1,
+        "next": [
+            "PsychubeReplayTwice",
+            "PsychubeSetReplaysTimes"
+        ]
+    },
+    "PsychubeReplayTwice": {
+        "recognition": "TemplateMatch",
+        "template": "Psychube/ReplayTwice.png",
+        "roi": [
+            740,
+            463,
+            168,
+            148
+        ],
+        "action": "Click",
+        "next": [
+            "PsychubeReplayTwice",
+            "StartReplay"
+        ]
+    }
+}
