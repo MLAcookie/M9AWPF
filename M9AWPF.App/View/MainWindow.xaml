@@ -1,15 +1,15 @@
 ﻿<Window
-    x:Class="M9AWPF.View.MainWindow"
+    x:Class="M9AWPF.App.View.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:M9AWPF.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.modernwpf.com/2019"
+    xmlns:view="clr-namespace:M9AWPF.App.View"
     Title="M9A WPF - M9A Config UI"
     Width="800"
     Height="600"
     ui:WindowHelper.UseModernWindowStyle="True"
     mc:Ignorable="d">
-    <local:EasyUI />
+    <view:EasyUI />
 </Window>

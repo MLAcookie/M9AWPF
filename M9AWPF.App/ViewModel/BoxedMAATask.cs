@@ -1,21 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using M9AWPF.Model;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using M9AWPF.App.Model;
 
-namespace M9AWPF.ViewModel;
+namespace M9AWPF.App.ViewModel;
 
 /// <summary>
 /// 封装的MAA Task
 /// </summary>
-public class BoxedMAATask
+public class BoxedMaaTask
 {
     /// <summary>
     /// 任务名称
@@ -31,32 +22,32 @@ public class BoxedMAATask
     /// 任务选项对应的值
     /// </summary>
     public List<string> OptionVals { get; set; } = new();
-    public M9AConfigObject.Task ToMAATask()
+    public M9AConfigObject.Task ToMaaTask()
     {
         var res = new M9AConfigObject.Task();
-        res.name = Name;
+        res.Name = Name;
         for (int i = 0; i < Options.Count; i++)
         {
             var option = new M9AConfigObject.Option()
             {
-                name = Options[i],
-                value = OptionVals[i],
+                Name = Options[i],
+                Value = OptionVals[i],
             };
             res.option.Add(option);
         }
         return res;
     }
-    public static BoxedMAATask FromMAATask(M9AConfigObject.Task task)
+    public static BoxedMaaTask FromMaaTask(M9AConfigObject.Task task)
     {
-        var res = new BoxedMAATask();
-        res.Name = task.name;
+        var res = new BoxedMaaTask
+        {
+            Name = task.Name,
+        };
         foreach (var item in task.option)
         {
-            res.Options.Add(item.name);
-            res.OptionVals.Add(item.value);
+            res.Options.Add(item.Name);
+            res.OptionVals.Add(item.Value);
         }
         return res;
     }
 }
-
-

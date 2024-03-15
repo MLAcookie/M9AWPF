@@ -1,23 +1,10 @@
-﻿using M9AWPF.Control;
-using M9AWPF.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using M9AWPF.App.Control;
+using M9AWPF.App.ViewModel;
 
-namespace M9AWPF.View
+namespace M9AWPF.App.View
 {
     /// <summary>
     /// EasyUI.xaml 的交互逻辑
@@ -37,8 +24,8 @@ namespace M9AWPF.View
         /// <param name="e"></param>
         private void Delete_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var boxedMAATask = ((sender as MenuItem)!.DataContext as BoxedMAATask)!;
-            var tasks = EasyUIViewModel.AllMAATasks.ToList();
+            var boxedMAATask = ((sender as MenuItem)!.DataContext as BoxedMaaTask)!;
+            var tasks = EasyUIViewModel.AllMaaTasks.ToList();
             for (int i = 0; i < tasks.Count; i++)
             {
                 if (tasks[i].Name == boxedMAATask.Name)
@@ -49,7 +36,7 @@ namespace M9AWPF.View
             }
 
             var arr = tasks.ToArray();
-            EasyUIViewModel.AllMAATasks = arr;
+            EasyUIViewModel.AllMaaTasks = arr;
             var itemsControl = (FindName("TaskList_ItemControl") as ItemsControl)!;
             itemsControl.ItemsSource = arr;
         }
@@ -61,8 +48,8 @@ namespace M9AWPF.View
         /// <param name="e"></param>
         private void MoveDown_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var boxedMAATask = ((sender as MenuItem)!.DataContext as BoxedMAATask)!;
-            var tasks = EasyUIViewModel.AllMAATasks.ToList();
+            var boxedMAATask = ((sender as MenuItem)!.DataContext as BoxedMaaTask)!;
+            var tasks = EasyUIViewModel.AllMaaTasks.ToList();
             for (int i = 0; i < tasks.Count; i++)
             {
                 if (tasks[i].Name == boxedMAATask.Name)
@@ -74,7 +61,7 @@ namespace M9AWPF.View
             }
 
             var arr = tasks.ToArray();
-            EasyUIViewModel.AllMAATasks = arr;
+            EasyUIViewModel.AllMaaTasks = arr;
             var itemsControl = (FindName("TaskList_ItemControl") as ItemsControl)!;
             itemsControl.ItemsSource = arr;
         }
@@ -86,8 +73,8 @@ namespace M9AWPF.View
         /// <param name="e"></param>
         private void MoveUp_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var boxedMAATask = ((sender as MenuItem)!.DataContext as BoxedMAATask)!;
-            var tasks = EasyUIViewModel.AllMAATasks.ToList();
+            var boxedMAATask = ((sender as MenuItem)!.DataContext as BoxedMaaTask)!;
+            var tasks = EasyUIViewModel.AllMaaTasks.ToList();
             for (int i = 0; i < tasks.Count; i++)
             {
                 if (tasks[i].Name == boxedMAATask.Name)
@@ -99,7 +86,7 @@ namespace M9AWPF.View
             }
 
             var arr = tasks.ToArray();
-            EasyUIViewModel.AllMAATasks = arr;
+            EasyUIViewModel.AllMaaTasks = arr;
             var itemsControl = (FindName("TaskList_ItemControl") as ItemsControl)!;
             itemsControl.ItemsSource = arr;
         }
@@ -150,7 +137,7 @@ namespace M9AWPF.View
         private void Button_Add_Click(object sender, RoutedEventArgs e)
         {
             // 找到目前的任务内容，构建任务对象
-            var task = new BoxedMAATask();
+            var task = new BoxedMaaTask();
 
             // 获取任务名称
             var combobox = (FindName("ComboBox_TaskName") as ComboBox)!;
@@ -175,7 +162,7 @@ namespace M9AWPF.View
 
             // 刷新任务列表
             var itemsControl = (FindName("TaskList_ItemControl") as ItemsControl)!;
-            itemsControl.ItemsSource = EasyUIViewModel.AllMAATasks;
+            itemsControl.ItemsSource = EasyUIViewModel.AllMaaTasks;
         }
     }
 }

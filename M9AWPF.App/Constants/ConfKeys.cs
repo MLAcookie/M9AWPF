@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace M9AWPF.Constants;
+namespace M9AWPF.App.Constants;
 
 public static class ConfKeys
 {
