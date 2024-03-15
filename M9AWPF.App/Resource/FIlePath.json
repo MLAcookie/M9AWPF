@@ -1,0 +1,6 @@
+{
+  "M9ARoot": "./M9A-Bin",
+  "M9AInterface":"./M9A-Bin/interface.json",
+  "M9AConfig":"./M9A-Bin/config/maa_pi_config.json",
+  "M9ABin":"./M9A-Bin/MaaPiCli.exe"
+}
