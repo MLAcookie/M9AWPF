@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace M9AWPF.Model;
+namespace M9AWPF.JsonSerializeObject;
 
 /// <summary>
 /// 定义maa_pi_config.json的内容
