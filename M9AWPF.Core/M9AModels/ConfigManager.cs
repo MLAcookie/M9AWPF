@@ -1,12 +1,10 @@
-﻿using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
-using M9AWPF.App.Constants;
+using M9AWPF.Core.Constants;
 
-namespace M9AWPF.App.Model;
+namespace M9AWPF.Core.M9AModels;
 
 /// <summary>
 /// 管理全局config的静态类，提供读取和写入maa的config的功能

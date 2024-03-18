@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using M9AWPF.App.Model;
+using M9AWPF.Core.M9AModels;
 using Microsoft.Win32;
 
 namespace M9AWPF.App.ViewModel;

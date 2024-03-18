@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using M9AWPF.App.Constants;
+using M9AWPF.Core.Constants;
 
 namespace M9AWPF.App.Model;
 

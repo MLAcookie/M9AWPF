@@ -5,7 +5,6 @@
         <TargetFramework>net6.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
-        <LangVersion>10</LangVersion>
         
         <AssemblyName>Updater</AssemblyName>
     </PropertyGroup>
@@ -19,10 +18,11 @@
     </PropertyGroup>
     
     <ItemGroup>
-      <Folder Include="ViewModels\" />
-    </ItemGroup>
-    
-    <ItemGroup>
+        <!-- 项目引用 -->
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+        <PackageReference Include="ModernWpfUI" Version="0.9.6" />
+        
       <ProjectReference Include="..\M9AWPF.Core\M9AWPF.Core.csproj" />
     </ItemGroup>
 

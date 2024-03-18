@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace M9AWPF.App.Model;
+﻿namespace M9AWPF.Core.M9AModels;
 
 /// <summary>
 /// 定义maa_pi_config.json的内容

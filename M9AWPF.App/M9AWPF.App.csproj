@@ -30,7 +30,7 @@
         <ProjectReference Include="..\M9AWPF.Core\M9AWPF.Core.csproj" />
         
         <!-- 资源 -->
-        <Resource Include="$(ProjectDir)/Font/fa.ttf" />
+        <!-- <Resource Include="$(ProjectDir)/Font/fa.ttf" /> -->
         <Resource Include="Font\fa.ttf" />
     </ItemGroup>
     

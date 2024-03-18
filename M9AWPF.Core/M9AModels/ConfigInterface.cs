@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text.Json.Nodes;
-using M9AWPF.App.Constants;
+﻿using System.Text.Json.Nodes;
+using M9AWPF.Core.Constants;
 
-namespace M9AWPF.App.Model;
+namespace M9AWPF.Core.M9AModels;
 
 /// <summary>
 /// 应用启动时读取interface文件，指示配置中可选的字段及其value

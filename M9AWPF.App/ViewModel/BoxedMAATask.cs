@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using M9AWPF.App.Model;
+using M9AWPF.Core.M9AModels;
 
 namespace M9AWPF.App.ViewModel;
 
