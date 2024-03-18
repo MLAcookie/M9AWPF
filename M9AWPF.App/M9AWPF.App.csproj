@@ -7,6 +7,8 @@
         <UseWPF>true</UseWPF>
         <!-- 避免ModernWpfUI生成大量语言Resources -->
         <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+        
+        <AssemblyName>M9AWPF</AssemblyName>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -24,8 +26,12 @@
         <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
         <PackageReference Include="ModernWpfUI" Version="0.9.6" />
         
+        <!-- Core -->
+        <ProjectReference Include="..\M9AWPF.Core\M9AWPF.Core.csproj" />
+        
         <!-- 资源 -->
         <Resource Include="$(ProjectDir)/Font/fa.ttf" />
+        <Resource Include="Font\fa.ttf" />
     </ItemGroup>
     
     

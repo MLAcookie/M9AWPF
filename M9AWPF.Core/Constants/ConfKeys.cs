@@ -5,7 +5,7 @@ namespace M9AWPF.App.Constants;
 public static class ConfKeys
 {
     // M9A文件夹
-    private const string M9ARoot = "./M9A-Bin";
+    public const string M9ARoot = "./M9A-Bin";
 
     // interface.json路径
     public static readonly string M9AInterface = Path.Combine(M9ARoot, "./interface.json");

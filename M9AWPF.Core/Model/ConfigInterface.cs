@@ -13,9 +13,10 @@ public static class ConfigInterface
     private static readonly string Path = ConfKeys.M9AInterface;
 
     /// <summary>
-	/// option及其所对应的能取的值
-	/// </summary>
-	public static readonly Dictionary<string, List<string>> option = new();
+    /// option及其所对应的能取的值
+    /// </summary>
+    public static readonly Dictionary<string, List<string>> option = new();
+
     public static string M9AVersion { get; }
 
     /// <summary>
@@ -71,7 +72,7 @@ public static class ConfigInterface
             {
                 Name = item!["name"]!.ToString(),
             };
-
+ 
             var option = item!["option"];
             if (option != null)
             {

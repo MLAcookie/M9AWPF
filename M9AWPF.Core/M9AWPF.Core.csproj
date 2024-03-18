@@ -1,13 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     
     <PropertyGroup>
-        <OutputType>WinExe</OutputType>
         <TargetFramework>net6.0-windows</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <UseWPF>true</UseWPF>
-        <LangVersion>10</LangVersion>
         
-        <AssemblyName>Updater</AssemblyName>
+        <AssemblyName>Core</AssemblyName>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -17,13 +15,5 @@
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <OutputPath>..\bin\Release\</OutputPath>
     </PropertyGroup>
-    
-    <ItemGroup>
-      <Folder Include="ViewModels\" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <ProjectReference Include="..\M9AWPF.Core\M9AWPF.Core.csproj" />
-    </ItemGroup>
 
 </Project>

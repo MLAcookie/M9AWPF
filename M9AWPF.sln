@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M9AWPF.App", "M9AWPF.App\M9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M9AWPF.Updater", "M9AWPF.Updater\M9AWPF.Updater.csproj", "{098EBBEA-1028-4674-9C3A-5A42DF872846}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M9AWPF.Core", "M9AWPF.Core\M9AWPF.Core.csproj", "{B9C12444-8477-4D7E-92AA-FFD07E8EAD72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{098EBBEA-1028-4674-9C3A-5A42DF872846}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{098EBBEA-1028-4674-9C3A-5A42DF872846}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{098EBBEA-1028-4674-9C3A-5A42DF872846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9C12444-8477-4D7E-92AA-FFD07E8EAD72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9C12444-8477-4D7E-92AA-FFD07E8EAD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9C12444-8477-4D7E-92AA-FFD07E8EAD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9C12444-8477-4D7E-92AA-FFD07E8EAD72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
