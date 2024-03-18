@@ -124,7 +124,7 @@
                     Orientation="Horizontal"
                     Visibility="{Binding IsM9ANotLatest}">
                     <StackPanel.ToolTip>
-                        <TextBlock Text="{Binding M9ALatestVerion, StringFormat='{}latest: {0}'}" Visibility="{Binding IsM9ANotLatest}" />
+                        <TextBlock Text="{Binding M9ALatestVersion, StringFormat='{}latest: {0}'}" Visibility="{Binding IsM9ANotLatest}" />
                     </StackPanel.ToolTip>
                     <TextBlock
                         Margin="5,0"

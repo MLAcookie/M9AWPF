@@ -95,7 +95,7 @@ namespace M9AWPF.Model
         /// <summary>
         /// 获取最新的M9ARelease，下载到temp目录中
         /// </summary>
-        public static async Task GetLatestM9ARelase()
+        public static async Task GetLatestM9ARelease()
         {
             //文件夹路径检查
             if (!Directory.Exists(ConfKeys.TempDownload))
@@ -118,7 +118,7 @@ namespace M9AWPF.Model
                         Stream latestReleaseStream = await client.GetStreamAsync(
                             asset.browser_download_url
                         );
-                        FileStream saveFile = new(downloadFilePath, FileMode.CreateNew);
+                        FileStream saveFile = new FileStream(downloadFilePath, FileMode.CreateNew);
                         await latestReleaseStream.CopyToAsync(saveFile);
                         saveFile.Close();
                     }
