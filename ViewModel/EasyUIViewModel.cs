@@ -132,7 +132,7 @@ public class EasyUIViewModel : ObservableObject
             return M9AVersionHelper.IsLatestVersion() ? Visibility.Collapsed : Visibility.Visible;
         }
     }
-    public static string M9ALatestVerion
+    public static string M9ALatestVersion
     {
         get { return M9AVersionHelper.LatestReleaseVersion; }
     }
@@ -184,7 +184,7 @@ public class EasyUIViewModel : ObservableObject
     async void UpdateM9A()
     {
         IsDownloading = true;
-        await M9AVersionHelper.GetLatestM9ARelase();
+        await M9AVersionHelper.GetLatestM9ARelease();
         IsDownloading = false;
         M9AVersionHelper.HasDownloaded = true;
     }
