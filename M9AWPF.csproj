@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <!-- 避免ModernWpfUI生成大量语言Resources -->
@@ -12,6 +12,7 @@
   <ItemGroup>
     <!-- 项目引用 -->
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="HandyControl" Version="3.5.1" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
 
@@ -100,9 +101,7 @@
 
   <Target Name="M9A" AfterTargets="Build" Condition="'$(Configuration)'=='Debug'">
     <!-- M9A 1.0.0-btea3 -->
-    <Download
-      url="https://github.com/MaaXYZ/M9A/releases/download/v1.0.0-beta.3/M9A-win-x86_64-v1.0.0-beta.3.zip"
-      saveDir="$(OutDir)/M9A-Bin/" />
+    <Download url="https://github.com/MaaXYZ/M9A/releases/download/v1.1.4/M9A-win-x86_64-v1.1.4.zip" saveDir="$(OutDir)/M9A-Bin/" />
     <Message Text="Finished Download" />
   </Target>
 </Project>
