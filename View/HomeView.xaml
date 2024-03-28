@@ -27,24 +27,35 @@
                     Height="50"
                     Content="Start"
                     FontSize="24" />
+                <Grid Width="300" Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Use Timer Setting?" />
+                    <ToggleButton
+                        Name="UseTimerButton"
+                        Grid.Column="1"
+                        Style="{DynamicResource ToggleButtonSwitch}" />
+                </Grid>
                 <ComboBox
                     Width="300"
-                    Margin="10"
                     hc:InfoElement.Title="Select config"
                     hc:InfoElement.TitlePlacement="Left"
                     hc:InfoElement.TitleWidth="100"
-                    Style="{StaticResource ComboBoxExtend}" />
+                    Style="{StaticResource ComboBoxExtend}"
+                    Visibility="{Binding IsChecked, ElementName=UseTimerButton, Converter={StaticResource Boolean2VisibilityReConverter}}" />
             </StackPanel>
         </DockPanel>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition Height="10*" />
+                <RowDefinition Height="14*" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <hc:Divider
                 Grid.Row="1"
-                LineStroke="{DynamicResource DarkOpacityBrush}"
+                LineStroke="LightGray"
                 LineStrokeThickness="2"
                 Orientation="Vertical" />
         </Grid>

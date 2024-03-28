@@ -9,15 +9,20 @@ namespace M9AWPF.ViewModel;
 public partial class NavigationViewModel : ObservableObject
 {
     static Dictionary<string, UserControl> UCTable =
-        new() { { "Home", new HomeView() }, { "Setting", new SettingView() }, };
+        new()
+        {
+            { "Home", new HomeView() },
+            { "TaskEdit", new TaskEditView() },
+            { "Timer", new TimerView() },
+            { "Setting", new SettingView() },
+        };
 
     [ObservableProperty]
-    UserControl currentPage= UCTable["Home"];
+    UserControl currentPage = UCTable["Home"];
 
     [RelayCommand]
     void ChangePage(string pageName)
     {
         CurrentPage = UCTable[pageName];
     }
-
 }

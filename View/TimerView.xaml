@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="M9AWPF.View.TaskEditView"
+    x:Class="M9AWPF.View.TimerView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,18 +16,7 @@
             <ColumnDefinition Width="20" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <StackPanel Margin="5">
-            <ComboBox
-                Margin="5"
-                hc:InfoElement.Title="Config File:"
-                hc:InfoElement.TitlePlacement="Left"
-                hc:InfoElement.TitleWidth="100"
-                Style="{StaticResource ComboBoxExtend}" />
-            <hc:Divider
-                Margin="5"
-                LineStroke="LightGray"
-                LineStrokeThickness="2" />
-        </StackPanel>
+        <StackPanel Margin="5" />
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -41,7 +30,7 @@
                 Orientation="Vertical" />
         </Grid>
         <Border Grid.Column="2">
-            <TextBlock Text="（TaskOverView，之后写）" />
+            <TextBlock Text="（TimerOverView，之后写）" />
         </Border>
     </Grid>
 </UserControl>

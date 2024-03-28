@@ -12,15 +12,38 @@
     mc:Ignorable="d">
     <DockPanel MaxWidth="500" Margin="0,10">
         <TextBlock DockPanel.Dock="Bottom" Text="By：M9A-WPF Team" />
-        <StackPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".5*" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock VerticalAlignment="Center" Text="Http Proxy:" />
-                <TextBox Grid.Column="1" />
-            </Grid>
-        </StackPanel>
+        <hc:ScrollViewer>
+            <StackPanel>
+                <TextBox
+                    Margin="5"
+                    hc:InfoElement.Title="ADB Path: "
+                    hc:InfoElement.TitlePlacement="Left"
+                    hc:InfoElement.TitleWidth="120"
+                    Style="{StaticResource TextBoxExtend}" />
+                <TextBox
+                    Margin="5"
+                    hc:InfoElement.Title="ADB Port: "
+                    hc:InfoElement.TitlePlacement="Left"
+                    hc:InfoElement.TitleWidth="120"
+                    Style="{StaticResource TextBoxExtend}" />
+                <ComboBox
+                    Margin="5"
+                    hc:InfoElement.Title="Client Type: "
+                    hc:InfoElement.TitlePlacement="Left"
+                    hc:InfoElement.TitleWidth="120"
+                    Style="{StaticResource ComboBoxExtend}" />
+                <hc:Divider
+                    MaxWidth="480"
+                    Margin="5"
+                    LineStroke="LightGray"
+                    LineStrokeThickness="2" />
+                <TextBox
+                    Margin="5"
+                    hc:InfoElement.Title="Http Proxy: "
+                    hc:InfoElement.TitlePlacement="Left"
+                    hc:InfoElement.TitleWidth="120"
+                    Style="{StaticResource TextBoxExtend}" />
+            </StackPanel>
+        </hc:ScrollViewer>
     </DockPanel>
 </UserControl>
